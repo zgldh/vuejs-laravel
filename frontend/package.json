@@ -1,7 +1,7 @@
 {
-  "name": "vue-loader-example",
-  "version": "3.0.0",
-  "description": "Example using Webpack with vue-loader",
+  "name": "laravel-vuejs-frontend",
+  "version": "1.0.0",
+  "description": "Laravel-VueJS ",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.config.js",
@@ -32,6 +32,7 @@
     "karma-spec-reporter": "0.0.23",
     "karma-webpack": "^1.7.0",
     "phantomjs": "^1.9.19",
+    "sass-loader": "^3.1.0",
     "stylus-loader": "^1.4.0",
     "template-html-loader": "0.0.3",
     "url-loader": "^0.5.7",

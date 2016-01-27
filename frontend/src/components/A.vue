@@ -1,4 +1,4 @@
-<style scoped>
+<style lang="sass" scoped>
 .container {
   border: 1px solid #00f;
 }

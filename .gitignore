@@ -41,3 +41,4 @@
 /frontend/node_modules
 
 # Created by .ignore support plugin (hsz.mobi)
+public/dist/

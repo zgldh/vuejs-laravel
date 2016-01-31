@@ -38,7 +38,12 @@ module.exports = {
             // Bootstrap 4
             {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery'},
             {test: /\.(woff2?|svg)$/, loader: 'url?limit=10000'},
-            {test: /\.(ttf|eot)$/, loader: 'file'}
+            {test: /\.(ttf|eot)$/, loader: 'file'},
+
+            // the url-loader uses DataUrls.
+            // the file-loader emits files.
+            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
         ]
     },
     // vue-loader config:

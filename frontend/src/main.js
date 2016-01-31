@@ -1,8 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
+require('./assets/style.scss');
+
+import Vue from 'vue';
+import App from './App.vue';
 
 /* eslint-disable no-new */
 new Vue({
-  el: 'body',
-  components: { App }
-})
+    el: 'body',
+    components: {App}
+});

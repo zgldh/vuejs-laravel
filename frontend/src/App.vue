@@ -1,42 +1,43 @@
 <template>
 
-  <div>
-    <img class="logo" src="./assets/logo.png">
-    <h1>{{msg}}</h1>
-    <comp-a></comp-a>
-    <comp-b></comp-b>
-  </div>
+    <div>
+        <img class="logo" src="./assets/logo.png">
+        <h1>{{msg}}</h1>
+        <comp-a></comp-a>
+        <comp-b></comp-b>
+    </div>
 
 </template>
 
 <script>
-  import CompA from './components/A.vue'
-  import CompB from './components/B.vue'
+    import CompA from './components/A.vue';
+    import CompB from './components/B.vue';
 
-  export default {
-    data () {
-      return {
-        msg: 'Hello from vue-loader!'
-      }
-    },
-    components: {
-      CompA,
-      CompB
-    }
-  }
+    export default {
+        data () {
+            return {
+                msg: 'Hello from vue-loader!'
+            };
+        },
+        components: {
+            CompA,
+            CompB
+        }
+    };
 </script>
 
-<style lang="sass">
-  body {
-    font-size: 100%;
-    color: #999;
-	h2{
-		font-size: normal;
-	}
-  }
+<style>
+    body {
+        font-size: 100%;
+        color: #999;
+    }
 
-  .logo {
-    width: 40px;
-    height: 40px;
-  }
+    h2 {
+        font-size: inherit;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
 </style>

@@ -2,12 +2,14 @@
 
     <div class="container-fluid">
         <navbar></navbar>
+
+        <router-view></router-view>
     </div>
 
 </template>
 
 <script>
-    import Navbar from './components/Main/Navbar.vue';
+    import Navbar from './Navbar.vue';
 
     export default {
         data () {

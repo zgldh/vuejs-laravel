@@ -7,13 +7,13 @@
         <div class="collapse  navbar-toggleable-xs" id="exCollapsingNavbar">
             <a class="navbar-brand" v-link="{ path: '/' }">Logo</a>
             <ul class="nav navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item" v-bind:class="{'active': $route.path=='/'}">
                     <a class="nav-link" v-link="{ path: '/' }">首页 <span class="sr-only">(当前页)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-bind:class="{'active': $route.path=='/articles'}">
                     <a class="nav-link" v-link="{ path: '/articles' }">文章</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-bind:class="{'active': $route.path=='/about'}">
                     <a class="nav-link" v-link="{ path: '/about' }">关于</a>
                 </li>
             </ul>

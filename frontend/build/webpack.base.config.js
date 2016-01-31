@@ -1,9 +1,12 @@
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        main: './src/main.js',
+        admin: './src/admin.js',
+    },
     output: {
         path: '../public/dist',
-        publicPath: 'dist/',
-        filename: 'build.js'
+        publicPath: '/dist/',
+        filename: '[name].js'
     },
     module: {
         loaders: [

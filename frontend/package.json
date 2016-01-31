@@ -1,7 +1,7 @@
 {
   "name": "laravel-vuejs-frontend",
   "version": "1.0.0",
-  "description": "Laravel-VueJS ",
+  "description": "Laravel-VueJS",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.config.js",

@@ -30,6 +30,9 @@
   body {
     font-size: 100%;
     color: #999;
+	h2{
+		font-size: normal;
+	}
   }
 
   .logo {

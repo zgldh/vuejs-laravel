@@ -34,7 +34,11 @@ module.exports = {
                     // fallback to file-loader with this naming scheme
                     name: '[name].[ext]?[hash]'
                 }
-            }
+            },
+            // Bootstrap 4
+            {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery'},
+            {test: /\.(woff2?|svg)$/, loader: 'url?limit=10000'},
+            {test: /\.(ttf|eot)$/, loader: 'file'}
         ]
     },
     // vue-loader config:

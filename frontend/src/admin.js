@@ -1,5 +1,8 @@
+require('./assets/admin.scss');
+require('./common.js');
+
 import Vue from 'vue';
-import App from './App.vue';
+import App from './Admin.vue';
 
 /* eslint-disable no-new */
 new Vue({

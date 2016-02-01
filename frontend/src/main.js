@@ -1,4 +1,5 @@
-import './assets/main.scss';
+require('./assets/main.scss');
+
 import './common';
 import Vue from 'vue';
 import App from './components/Main/App.vue';

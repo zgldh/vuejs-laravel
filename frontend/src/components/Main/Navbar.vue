@@ -1,6 +1,6 @@
 <template>
 
-    <nav class="navbar navbar-light bg-faded">
+    <nav class="navbar navbar-light bg-faded main-navbar">
         <button class="navbar-toggler  hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
             &#9776;
         </button>
@@ -40,4 +40,7 @@
 </script>
 
 <style scoped>
+.main-navbar{
+  margin: 1em 0;
+}
 </style>

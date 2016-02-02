@@ -1,19 +1,18 @@
 import VueRouter from 'vue-router';
-import Home from './Pages/Home.vue';
-import Articles from './Pages/Articles.vue';
-import About from './Pages/About.vue';
 
 var router = new VueRouter();
-
 router.map({
     '/': {
-        component: Home
+        component: require('./Pages/Home.vue')
     },
     '/articles': {
-        component: Articles
+        component: require('./Pages/Articles.vue')
     },
     '/about': {
-        component: About
+        component: require('./Pages/About.vue')
+    },
+    '/register': {
+        component: require('./Pages/Register.vue')
     }
 });
 

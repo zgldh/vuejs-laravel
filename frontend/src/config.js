@@ -1,3 +1,3 @@
 export default {
-	DOMAIN: 'vuejslumen'
-}
+    DOMAIN: 'vuejslumen'
+};

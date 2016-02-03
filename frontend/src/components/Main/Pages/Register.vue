@@ -41,6 +41,10 @@
             Submit: function (event) {
                 console.log(event);
             }
+        },
+        created: function () {
+            // `this` 指向 vm 实例
+            console.log('a is: ' + this.a)
         }
     };
 </script>

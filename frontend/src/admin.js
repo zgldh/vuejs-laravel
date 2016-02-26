@@ -1,11 +1,8 @@
-require('./assets/admin.scss');
-require('./common.js');
-
-import Vue from 'vue';
-import App from './components/Admin/App.vue';
+import Vue from 'vue'
+import App from './App'
 
 /* eslint-disable no-new */
 new Vue({
-    el: 'body',
-    components: {App}
-});
+  el: 'body',
+  components: { App }
+})

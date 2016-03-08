@@ -11,12 +11,6 @@
 |
 */
 
-$app->group([
-    'prefix' => 'api'
-], function ($app) {
-
-    $app->get('/', function () use ($app) {
-        return $app->version();
-    });
-
+$app->get('/', function () use ($app) {
+    return $app->version();
 });

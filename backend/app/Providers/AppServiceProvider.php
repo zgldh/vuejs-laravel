@@ -13,11 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->loadConfigurations();
-    }
-
-    private function loadConfigurations()
-    {
-        $this->app->configure('jwt');
+        //
     }
 }

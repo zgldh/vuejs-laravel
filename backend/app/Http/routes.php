@@ -28,4 +28,5 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+    Route::post('auth/register', 'Auth/AuthController@postRegister');
 });

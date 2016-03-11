@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <img class="logo" src="./assets/logo.png">
+    <img class="logo" src="/assets/logo.png">
     <hello></hello>
     <p>
-      Welcome to your Vue.js app. To get started, take a look at the
+      ADMIN! Welcome to your Vue.js app. To get started, take a look at the
       <a href="https://github.com/vuejs-templates/webpack#folder-structure" target="_blank">README</a>
       of this template. If you have any issues with the setup, please file an issue at this template's repository.
     </p>
@@ -21,36 +21,36 @@
 </template>
 
 <script>
-import Hello from './components/Hello'
+  import Hello from '../Hello'
 
-export default {
-  components: {
-    Hello
+  export default {
+    components: {
+      Hello
+    }
   }
-}
 </script>
 
 <style>
-html {
-  height: 100%;
-}
+  html {
+    height: 100%;
+  }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 
-#app {
-  margin-top: -100px;
-  max-width: 600px;
-  font-family: Helvetica, sans-serif;
-  text-align: center;
-}
+  #app {
+    margin-top: -100px;
+    max-width: 600px;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+  }
 
-.logo {
-  width: 100px;
-  height: 100px
-}
+  .logo {
+    width: 100px;
+    height: 100px
+  }
 </style>

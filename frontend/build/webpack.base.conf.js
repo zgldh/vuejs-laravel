@@ -2,13 +2,14 @@ var path = require('path')
 
 module.exports = {
   entry: {
-    main: './src/main.js',
+    app: './src/main.js',
     admin: './src/admin.js',
   },
   output: {
     path: path.resolve(__dirname, '../../public/dist'),
     publicPath: '/dist/',
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: "[id].chunk.js"
   },
   resolve: {
     extensions: ['', '.js', '.vue'],

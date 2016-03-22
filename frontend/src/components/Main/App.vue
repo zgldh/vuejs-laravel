@@ -70,7 +70,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="sass" rel="stylesheet/scss" scoped>
   @import "../../semantic/dist/semantic.css";
 
   .masthead.segment {

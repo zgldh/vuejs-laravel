@@ -41,11 +41,11 @@
   }
 </script>
 
-<style lang="sass">
+<style lang="sass" rel="stylesheet/scss">
   .pusher.site-nav-pusher {
     min-height: inherit;
     overflow: visible;
-    z-index:auto;
+    z-index: auto;
 
     .pointing.menu .toc.item {
       display: none;
@@ -62,5 +62,4 @@
       }
     }
   }
-
 </style>

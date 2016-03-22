@@ -25,7 +25,7 @@
   }
 </script>
 
-<style>
+<style lang="sass" rel="stylesheet/scss">
   html {
     height: 100%;
   }

@@ -1,4 +1,5 @@
 var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -12,11 +13,17 @@ module.exports = {
     chunkFilename: "[id].chunk.js"
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.css', '.vue'],
     alias: {
       'src': path.resolve(__dirname, '../src')
     }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      "jQuery": "jquery"
+    })
+  ],
   resolveLoader: {
     root: path.join(__dirname, 'node_modules')
   },
@@ -30,7 +37,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'eslint',
-        exclude: /node_modules/
+        exclude: /node_modules|semantic/
       }
     ],
     loaders: [
@@ -54,7 +61,12 @@ module.exports = {
           limit: 10000,
           name: '[name].[ext]?[hash:7]'
         }
-      }
+      },
+      {test: /\.woff$/, loader: "url-loader?limit=10000&mimetype=application/font-woff"},
+      {test: /\.woff2$/, loader: "url-loader?limit=10000&mimetype=application/font-woff2"},
+      {test: /\.ttf$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream"},
+      {test: /\.eot$/, loader: "file-loader"},
+      {test: /\.svg$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml"}
     ]
   },
   eslint: {

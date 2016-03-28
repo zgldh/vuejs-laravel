@@ -15,13 +15,13 @@
         <a class="toc item">
           <i class="sidebar icon"></i>
         </a>
-        <a class="active item">首页</a>
+        <a class="active item" v-link="{path:'/'}">首页</a>
         <a class="item">工作</a>
         <a class="item">公司</a>
         <a class="item">招聘</a>
         <div class="right menu">
           <a class="item">登录</a>
-          <a class="item">注册</a>
+          <a class="item" v-link="{path:'/register'}">注册</a>
         </div>
       </div>
     </div>

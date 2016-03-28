@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 /*
@@ -26,7 +26,8 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
-    Route::post('auth/register', 'Auth/AuthController@postRegister');
+Route::group(['middleware' => ['web'], 'prefix' => 'api'], function () {
+  //
+  Route::post('auth/register', 'Auth/AuthController@postRegister');
+  Route::get('current_user', 'HomeController@getCurrentUser');
 });

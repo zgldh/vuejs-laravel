@@ -1,6 +1,9 @@
 <template>
 
-  <div>Home Page</div>
+  <div class="ui container">
+    <h1>VueJS + Laravel + SemanticUI + WebPack</h1>
+    <p>次世代Web开发组合</p>
+  </div>
 
 </template>
 

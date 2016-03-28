@@ -2,7 +2,7 @@
 
   <site-nav></site-nav>
 
-  <div class="pusher" style="padding-top:55px;">
+  <div class="pusher" style="padding-top:70px;">
     <router-view></router-view>
   </div>
 </template>
@@ -14,6 +14,13 @@
   export default {
     components: {
       SiteNav
+    },
+    ready: function () {
+      this.$http.get('current_user').then(function (re) {
+        console.log(re)
+      }, function (err) {
+        console.log(err)
+      })
     }
   }
 </script>

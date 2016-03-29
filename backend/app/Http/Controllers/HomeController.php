@@ -12,4 +12,10 @@ class HomeController extends BaseController
     return '123';
     return $request->all();
   }
+
+  public function postCurrentUser(Request $request)
+  {
+    return 'post';
+    return $request->all();
+  }
 }

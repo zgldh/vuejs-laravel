@@ -26,12 +26,14 @@ config.plugins = (config.plugins || []).concat([
   new HtmlWebpackPlugin({
     filename: 'index.html',
     template: 'src/index.html',
-    inject: false
+    inject: true,
+    chunks: ['index']
   }),
   new HtmlWebpackPlugin({
     filename: 'admin.html',
     template: 'src/admin.html',
-    inject: false
+    inject: true,
+    chunks: ['admin']
   })
 ])
 

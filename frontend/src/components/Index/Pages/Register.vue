@@ -34,11 +34,6 @@
 </template>
 
 <script>
-  var $ = require('jquery')
-  $(document).ready(function () {
-    $('.register-page .ui.checkbox').checkbox()
-  })
-
   export default {
     data () {
       return {

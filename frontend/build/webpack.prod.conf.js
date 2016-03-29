@@ -15,7 +15,7 @@ var SOURCE_MAP = true
 config.devtool = SOURCE_MAP ? 'source-map' : false
 
 // generate loader string to be used with extract text plugin
-function generateExtractLoaders (loaders) {
+function generateExtractLoaders(loaders) {
   return loaders.map(function (loader) {
     return loader + '-loader' + (SOURCE_MAP ? '?sourceMap' : '')
   }).join('!')
@@ -57,6 +57,7 @@ config.plugins = (config.plugins || []).concat([
     filename: '../index.html',
     template: 'src/index.html',
     inject: true,
+    chunks: ['index'],
     minify: {
       removeComments: true,
       collapseWhitespace: true,
@@ -69,6 +70,7 @@ config.plugins = (config.plugins || []).concat([
     filename: '../admin.html',
     template: 'src/admin.html',
     inject: true,
+    chunks: ['admin'],
     minify: {
       removeComments: true,
       collapseWhitespace: true,

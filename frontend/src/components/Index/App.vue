@@ -17,9 +17,9 @@
     },
     ready: function () {
       this.$http.get('current_user').then(function (re) {
-        console.log(re)
+        console.debug('First current_user at App.vue', arguments)
       }, function (err) {
-        console.log(err)
+        console.debug('First current_user at App.vue', arguments, err)
       })
     }
   }

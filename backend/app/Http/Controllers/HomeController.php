@@ -9,13 +9,16 @@ class HomeController extends BaseController
 {
   public function getCurrentUser(Request $request)
   {
-    return '123';
-    return $request->all();
+    return array_merge($request->all(), [__METHOD__]);
   }
 
   public function postCurrentUser(Request $request)
   {
-    return 'post';
-    return $request->all();
+    return array_merge($request->all(), [__METHOD__]);
+  }
+
+  public function deleteCurrentUser(Request $request)
+  {
+    return array_merge($request->all(), [__METHOD__]);
   }
 }

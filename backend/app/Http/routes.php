@@ -31,4 +31,5 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api'], function () {
   Route::post('auth/register', 'Auth/AuthController@postRegister');
   Route::get('current_user', 'HomeController@getCurrentUser');
   Route::post('current_user', 'HomeController@postCurrentUser');
+  Route::delete('current_user', 'HomeController@deleteCurrentUser');
 });

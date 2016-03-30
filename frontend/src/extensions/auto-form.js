@@ -52,6 +52,7 @@ Vue.directive('auto-form', {
         }, function (response) {
           console.log('auto-form: submit error', response)
           form.classList.remove('loading')
+          serverFormErrors(response)
         })
 
         form.classList.add('loading')
@@ -63,6 +64,51 @@ Vue.directive('auto-form', {
     var getFormData = function () {
       return JSON.parse(JSON.stringify(vm[expression]))
     }
+    var serverFormErrors = function (response) {
+      var remainingErrors = {}
+      if (response.status === 422) {
+        for (var key in response.data) {
+          if (response.data.hasOwnProperty(key)) {
+            var fieldInput = form.querySelector('[name="' + key + '"]')
+            var fieldDom = fieldInput ? fieldInput.parentNode : null
+            if (!fieldDom) {
+              remainingErrors[key] = response.data[key]
+              continue
+            }
+            appendFormError(fieldDom, response.data[key])
+          }
+        }
+      }
+    }
+
+    var appendFormError = function (fieldDom, errors) {
+      fieldDom.classList.add('error')
+      var errorsText = errors.join('<br>')
+      var textNode = document.createTextNode(errorsText)
+      var errorNode = document.createElement('div')
+      errorNode.className = 'ui basic red pointing prompt label transition visible error-label'
+      errorNode.appendChild(textNode)
+
+      setTimeout(function () {
+        errorNode.classList.add('full-display')
+      }, 100)
+
+      fieldDom.appendChild(errorNode)
+    }
+    //
+    // var removeFormError = function (form, field_name) {
+    //   var input = form.find("[name='" + field_name + "']")
+    //   var input_parent = input.parentsUntil('.field').parent()
+    //   if (input_parent.length === 0) {
+    //     input_parent = input.parent('.field')
+    //   }
+    //   input.siblings('.error-label').remove()
+    //   input_parent.removeClass('error')
+    // }
+    //
+    // var removeFormErrors = function (form) {
+    //   return form.find('.field.error').removeClass('error').find('.error-label').remove()
+    // }
 
     form.addEventListener('submit', vm.$onAutoFormSubmit)
   },

@@ -73,6 +73,7 @@ class AuthController extends BaseController
 
   public function postRegister(Request $request)
   {
-    return $request->all();
+    $this->register($request);
+    return \Auth::user();
   }
 }

@@ -48,11 +48,17 @@
         }
       }
     },
-    methods: {
-    },
+    methods: {},
     components: {}
   }
 </script>
 
-<style scoped>
+<style lang="sass" rel="stylesheet/scss">
+  .ui.basic.label.error-label {
+    transition: opacity .3s ease;
+    opacity: 0;
+    &.full-display {
+      opacity: 1;
+    }
+  }
 </style>

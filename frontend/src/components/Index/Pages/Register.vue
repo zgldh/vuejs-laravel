@@ -6,7 +6,7 @@
       <div class="row">
         <div class="column">
 
-          <form class="ui form" v-on:submit.prevent="onSubmit">
+          <form class="ui form" action="auth/register" method="post" v-auto-form="form">
             <div class="field">
               <label>E-Mail</label>
               <input type="text" name="email" placeholder="用户登录" v-model="form.email">
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+  import '../../../extensions/auto-form'
+
   export default {
     data () {
       return {
@@ -47,10 +49,6 @@
       }
     },
     methods: {
-      onSubmit: function (event) {
-        var data = JSON.stringify(this.form)
-        console.log(data)
-      }
     },
     components: {}
   }

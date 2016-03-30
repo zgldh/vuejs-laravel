@@ -2,12 +2,11 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
-Vue.http.options.root = 'http://vuejs-laravel/api'
+Vue.http.options.root = 'http://vuejs-laravel/'
 Vue.http.options.emulateHTTP = true
 Vue.http.options.emulateJSON = true
 Vue.http.interceptors.push({
   request: function (request) {
-    console.log('interceptors', request)
     if (/https?:\/\//.test(request.url) === false) {
       var xsrfToken = getCookie('XSRF-TOKEN')
       if (xsrfToken) {

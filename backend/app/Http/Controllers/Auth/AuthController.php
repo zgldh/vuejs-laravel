@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
 use App\User;
+use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -72,6 +73,6 @@ class AuthController extends BaseController
 
   public function postRegister(Request $request)
   {
-
+    return $request->all();
   }
 }

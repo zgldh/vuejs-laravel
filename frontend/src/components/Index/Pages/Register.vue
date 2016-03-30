@@ -8,20 +8,21 @@
 
           <form class="ui form" action="auth/register" method="post" v-auto-form="form">
             <div class="field">
-              <label>E-Mail</label>
-              <input type="text" name="email" placeholder="用户登录" v-model="form.email">
+              <label>电子邮箱</label>
+              <input type="email" name="email" placeholder="用户登录" v-model="form.email" required>
             </div>
             <div class="field">
               <label>昵称</label>
-              <input type="text" name="name" placeholder="别人怎么称呼你" v-model="form.name">
+              <input type="text" name="name" placeholder="别人怎么称呼你" v-model="form.name" required>
             </div>
             <div class="field">
               <label>密码</label>
-              <input type="password" name="password" placeholder="" v-model="form.password">
+              <input type="password" name="password" placeholder="" v-model="form.password" required>
             </div>
             <div class="field">
               <label>重复密码</label>
-              <input type="password" name="password_confirmation" placeholder="" v-model="form.password_confirmation">
+              <input type="password" name="password_confirmation" placeholder="" v-model="form.password_confirmation"
+                     required>
             </div>
             <button class="ui primary button" type="submit">注册</button>
           </form>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-  import '../../../extensions/auto-form'
+  import '../../../extensions/AutoForm.vue'
 
   export default {
     data () {
@@ -54,11 +55,4 @@
 </script>
 
 <style lang="sass" rel="stylesheet/scss">
-  .ui.basic.label.error-label {
-    transition: opacity .3s ease;
-    opacity: 0;
-    &.full-display {
-      opacity: 1;
-    }
-  }
 </style>

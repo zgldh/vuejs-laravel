@@ -13,7 +13,7 @@ module.exports = {
     chunkFilename: "[id].chunk.js"
   },
   resolve: {
-    extensions: ['', '.js', '.css', '.vue'],
+    extensions: ['', '.js', '.css', '.sass', '.scss', '.vue'],
     alias: {
       'src': path.resolve(__dirname, '../src')
     }
@@ -53,6 +53,10 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json'
+      },
+      {
+        test: /\.scss$/,
+        loader: 'scss'
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

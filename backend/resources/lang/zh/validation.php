@@ -105,8 +105,8 @@
 
         'attributes' => [
             'password' => '密码',
-            'email'    => 'E-Mail',
-            'upload'    => '上传文件',
+            'email'    => '电子邮箱',
+            'upload'   => '上传文件',
         ],
 
     ];

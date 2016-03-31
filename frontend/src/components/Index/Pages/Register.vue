@@ -6,23 +6,22 @@
       <div class="row">
         <div class="column">
 
-          <form class="ui form" action="auth/register" method="post" v-auto-form="form">
+          <form class="ui form" action="auth/register" method="post" is="auto-form">
             <div class="field">
               <label>电子邮箱</label>
-              <input type="email" name="email" placeholder="用户登录" v-model="form.email" required>
+              <input type="email" name="email" placeholder="用户登录" v-model="form.email">
             </div>
             <div class="field">
               <label>昵称</label>
-              <input type="text" name="name" placeholder="别人怎么称呼你" v-model="form.name" required>
+              <input type="text" name="name" placeholder="别人怎么称呼你" v-model="form.name">
             </div>
             <div class="field">
               <label>密码</label>
-              <input type="password" name="password" placeholder="" v-model="form.password" required>
+              <input type="password" name="password" placeholder="" v-model="form.password">
             </div>
             <div class="field">
               <label>重复密码</label>
-              <input type="password" name="password_confirmation" placeholder="" v-model="form.password_confirmation"
-                     required>
+              <input type="password" name="password_confirmation" placeholder="" v-model="form.password_confirmation">
             </div>
             <button class="ui primary button" type="submit">注册</button>
           </form>

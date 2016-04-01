@@ -1,5 +1,6 @@
 <script>
   import Vue from 'vue'
+  import resource from '../components/resources'
   /**
    // Template
    // <form class="ui form" action="current_user" method="post" v-auto-form="form">
@@ -66,16 +67,16 @@
           }
         }
       },
-      'v-response-type': String
+      'response-type': String
     },
-    template: '<form id="{{ id }}" class="{{ class }}" name="{{ name }}" action="{{ action }}" method="{{ method }}" v-response-type="{{vResponseType}}" is="ajax-form"><slot></slot></form>',
+    template: '<form v-bind:id="id" v-bind:class="class" v-bind:name="name" ' +
+    'v-bind:action="action" v-bind:method="method" v-bind:response-type="responseType" ' +
+    'is="ajax-form"><slot></slot></form>',
     events: {
       beforeFormSubmit: function (el) {
         // fired after form is submitted
         console.log('beforeFormSubmit', el)
-        el.method = this.method
         el.action = Vue.http.options.root + this.action
-        el.vResponseType = this.vResponseType
       },
       afterFormSubmit: function (el) {
         // fired after fetch is called
@@ -103,8 +104,16 @@
   })
   Vue.component('ajax-form', {
     name: 'ajax-form',
-    props: ['id', 'class', 'action', 'method', 'v-response-type'],
-    template: '<form id="{{ $parent.id }}" class="{{ $parent.class }}" name="{{ $parent.name }}" action="{{ $parent.action }}" method="{{ $parent.method }}" v-on:submit.prevent="handleAjaxFormSubmit"><slot></slot></form>',
+    props: ['id', 'class', 'action', 'method', 'response-type'],
+    template: '<form id="{{ id }}" class="{{ class }}" name="{{ name }}" action="{{ action }}" method="{{ method }}" ' +
+    'response-type="{{responseType}}" v-on:submit.prevent="handleAjaxFormSubmit">' +
+    '<slot></slot></form>',
+    created: function () {
+      this.selfServer = true
+      if (/https?:\/\//.test(this.action) === true) {
+        this.selfServer = false
+      }
+    },
     methods: {
       handleAjaxFormSubmit: function (event) {
         // fires before we do anything
@@ -142,20 +151,40 @@
         }.bind(this)
 
         var xhr = new window.XMLHttpRequest()
+        var data = new window.FormData(event.target)
+
+        //  Method fix
+        if (this.selfServer) {
+          var method = this.method.toLowerCase()
+          if (method !== 'post' && method !== 'get') {
+            data.append('_method', method)
+            this.method = 'POST'
+          }
+        }
+
         xhr.open(this.method, this.action, true)
 
+        // XSRF
+        if (this.selfServer) {
+          var xsrfToken = resource.getXsrfToken()
+          if (xsrfToken) {
+            xhr.setRequestHeader('X-XSRF-TOKEN', xsrfToken)
+          }
+        }
+
         // you can set the form response type via v-response-type
-        if (this.vResponseType) {
-          xhr.responseType = this.vResponseType
+        if (this.responseType) {
+          xhr.responseType = this.responseType
         } else {
           xhr.responseType = 'json'
         }
+
+        xhr.setRequestHeader('Accept', 'application/json, text/plain, */*')
 
         xhr.upload.addEventListener('progress', handleProgress)
         xhr.addEventListener('readystatechange', handleFinish)
         xhr.addEventListener('error', handleError)
         xhr.addEventListener('abort', handleError)
-        var data = new window.FormData(event.target)
         xhr.send(data)
         // we have setup all the stuff we needed to
         this.$dispatch('afterFormSubmit', this)

@@ -8,7 +8,7 @@ Vue.http.options.emulateJSON = true
 Vue.http.interceptors.push({
   request: function (request) {
     if (/https?:\/\//.test(request.url) === false) {
-      var xsrfToken = getCookie('XSRF-TOKEN')
+      var xsrfToken = getXsrfToken()
       if (xsrfToken) {
         request.headers['X-XSRF-TOKEN'] = xsrfToken
       }
@@ -46,6 +46,11 @@ function getCookie (c_name) {
   return ''
 }
 
+function getXsrfToken () {
+  return getCookie('XSRF-TOKEN')
+}
+
 export default {
-  resource: VueResource
+  resource: VueResource,
+  getXsrfToken: getXsrfToken
 }

@@ -6,7 +6,7 @@
       <div class="row">
         <div class="column">
 
-          <form class="ui form" action="auth/register" method="post" is="auto-form">
+          <form class="ui form" action="auth/register" method="post" v-auto-form>
             <div class="field">
               <label>电子邮箱</label>
               <input type="email" name="email" placeholder="用户登录" v-model="form.email">

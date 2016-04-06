@@ -30,169 +30,251 @@
 //       }
 //   },
    */
-  Vue.component('auto-form', {
-    name: 'auto-form',
-    data: function () {
-      return {
-        email: '',
-        name: '',
-        password: '',
-        password_confirmation: ''
-      }
-    },
-    props: {
-      'id': String,
-      'class': String,
-      'action': {
-        type: String,
-        required: true
-      },
-      'method': {
-        type: String,
-        required: true,
-        validator: function (value) {
-          switch (value.toUpperCase()) {
-            case 'CONNECT':
-              return true
-            case 'DELETE':
-              return true
-            case 'GET':
-              return true
-            case 'HEAD':
-              return true
-            case 'OPTIONS':
-              return true
-            case 'POST':
-              return true
-            case 'PUT':
-              return true
-            case 'TRACE':
-              return true
-            case 'TRACK':
-              return true
-            default:
-              return false
-          }
-        }
-      },
-      'v-response-type': String
-    },
-    template: '<form id="{{id}}" class="{{class}} auto-form" name="{{name}}" action="{{action}}" method="{{method}}" v-on:submit.prevent="handleAjaxFormSubmit" ><slot></slot></form>',
-    created: function () {
-      this.selfServer = true
-      if (/https?:\/\//.test(this.action) === true) {
-        this.selfServer = false
+//  Vue.component('auto-form', {
+//    name: 'auto-form',
+//    props: {
+//      'id': String,
+//      'class': String,
+//      'action': {
+//        type: String,
+//        required: true
+//      },
+//      'method': {
+//        type: String,
+//        required: true,
+//        validator: function (value) {
+//          switch (value.toUpperCase()) {
+//            case 'CONNECT':
+//              return true
+//            case 'DELETE':
+//              return true
+//            case 'GET':
+//              return true
+//            case 'HEAD':
+//              return true
+//            case 'OPTIONS':
+//              return true
+//            case 'POST':
+//              return true
+//            case 'PUT':
+//              return true
+//            case 'TRACE':
+//              return true
+//            case 'TRACK':
+//              return true
+//            default:
+//              return false
+//          }
+//        }
+//      },
+//      'response-type': String
+//    },
+//    template: '<form v-bind:id="id" v-bind:class="class" v-bind:name="name" ' +
+//    'v-bind:action="action" v-bind:method="method" v-bind:response-type="responseType" ' +
+//    'is="ajax-form"><slot></slot></form>',
+//    events: {
+//      beforeFormSubmit: function (el) {
+//        // fired after form is submitted
+//        console.log('beforeFormSubmit', el)
+//        el.action = Vue.http.options.root + this.action
+//      },
+//      afterFormSubmit: function (el) {
+//        // fired after fetch is called
+//        console.log('afterFormSubmit', el)
+//      },
+//      onFormComplete: function (el, res) {
+//        // the form is done, but there could still be errors
+//        console.log('onFormComplete', el, res)
+//        // indicate the changes
+//        this.response = res
+//      },
+//      onFormProgress: function (el, e) {
+//        // the form is done, but there could still be errors
+//        console.log('onFormProgress', el, e)
+//        // indicate the changes
+//        this.progress = e.percent
+//      },
+//      onFormError: function (el, err) {
+//        // handle errors
+//        console.log('onFormError', el, err)
+//        // indicate the changes
+//        this.response = err
+//      }
+//    }
+//  })
+//  Vue.component('ajax-form', {
+//    name: 'ajax-form',
+//    props: ['id', 'class', 'action', 'method', 'response-type'],
+//    template: '<form id="{{ id }}" class="{{ class }}" name="{{ name }}" action="{{ action }}" method="{{ method }}" ' +
+//    'response-type="{{responseType}}" v-on:submit.prevent="handleAjaxFormSubmit">' +
+//    '<slot></slot></form>',
+//    created: function () {
+//      this.selfServer = true
+//      if (/https?:\/\//.test(this.action) === true) {
+//        this.selfServer = false
+//      }
+//    },
+//    methods: {
+//      handleAjaxFormSubmit: function (event) {
+//        // fires before we do anything
+//        this.$dispatch('beforeFormSubmit', this)
+//
+//        // fires whenever an error occurs
+//        var handleError = function (err) {
+//          this.$dispatch('onFormError', this, err)
+//        }.bind(this)
+//
+//        // set a default form method
+//        if (!this.method) {
+//          this.method = 'post'
+//        }
+//
+//        // fires when the form returns a result
+//        var handleFinish = function (data) {
+//          if (xhr.readyState === 4) {
+//            // a check to make sure the result was a success
+//            if (xhr.status < 400) {
+//              this.$dispatch('onFormComplete', this, xhr.response)
+//            } else {
+//              this.$dispatch('onFormError', this, xhr.statusText)
+//            }
+//          }
+//        }.bind(this)
+//
+//        var handleProgress = function (evt) {
+//          // flag indicating if the resource has a length that can be calculated
+//          if (evt.lengthComputable) {
+//            // create a new lazy property for percent
+//            evt.percent = (evt.loaded / evt.total) * 100
+//            this.$dispatch('onFormProgress', this, evt)
+//          }
+//        }.bind(this)
+//
+//        var xhr = new window.XMLHttpRequest()
+//        var data = new window.FormData(event.target)
+//
+//        //  Method fix
+//        if (this.selfServer) {
+//          var method = this.method.toLowerCase()
+//          if (method !== 'post' && method !== 'get') {
+//            data.append('_method', method)
+//            this.method = 'POST'
+//          }
+//        }
+//
+//        xhr.open(this.method, this.action, true)
+//
+//        // XSRF
+//        if (this.selfServer) {
+//          var xsrfToken = resource.getXsrfToken()
+//          if (xsrfToken) {
+//            xhr.setRequestHeader('X-XSRF-TOKEN', xsrfToken)
+//          }
+//        }
+//
+//        // you can set the form response type via v-response-type
+//        if (this.responseType) {
+//          xhr.responseType = this.responseType
+//        } else {
+//          xhr.responseType = 'json'
+//        }
+//
+//        xhr.setRequestHeader('Accept', 'application/json, text/plain, */*')
+//
+//        xhr.upload.addEventListener('progress', handleProgress)
+//        xhr.addEventListener('readystatechange', handleFinish)
+//        xhr.addEventListener('error', handleError)
+//        xhr.addEventListener('abort', handleError)
+//        xhr.send(data)
+//        // we have setup all the stuff we needed to
+//        this.$dispatch('afterFormSubmit', this)
+//      }
+//    }
+//  })
+
+  Vue.directive('auto-form', {
+    params: ['action', 'v-response-type'],
+    bind: function () {
+      console.log('auto-form: bind', this)
+      var params = this.params
+//      var expression = this.expression
+      var form = this.el
+      var vm = this.vm
+
+      var action = params.action
+      var selfServer = true
+      if (/https?:\/\//.test(action) === true) {
+        selfServer = false
       }
       else {
-        this.action = Vue.http.options.root + this.action
+        action = Vue.http.options.root + action
       }
-    },
-    compiled: function () {
-      var form = this.$el
-      // Prepare error box
+
+      // Prepare error boxes
       prepareErrorBoxes(form)
-    },
-    ready: function () {
-//      var form = this.$el
-//      var fieldInputs = form.querySelectorAll('[name]')
-//      for (var i = 0; i < fieldInputs.length; i++) {
-//        var name = fieldInputs[i].name
-//      }
-//      this.$watch('name', function (newValue, oldValue) {
-//        console.log('watch', newValue)
-//      })
-      this.$log()
-    },
-    watch: {
-      name: {
-        handler: function (data) {
-          console.log('watch', data)
-        }
-      }
-    },
-    events: {
-      beforeFormSubmit: function (el) {
-        // fired after form is submitted
-        console.log('beforeFormSubmit', el)
-      },
-      afterFormSubmit: function (el) {
-        // fired after fetch is called
-        console.log('afterFormSubmit', el)
-        removeFormErrors(this.$el)
-      },
-      onFormComplete: function (el, res) {
-        // the form is done, but there could still be errors
-        console.log('onFormComplete', el, res)
-        // indicate the changes
-        this.response = res
-      },
-      onFormProgress: function (el, e) {
-        // the form is done, but there could still be errors
-        console.log('onFormProgress', el, e)
-        // indicate the changes
-        this.progress = e.percent
-      },
-      onFormError: function (el, err) {
-        // handle errors
-        serverFormErrors(this.$el, err)
-      }
-    },
-    methods: {
-      handleAjaxFormSubmit: function (event) {
+
+      // Prepare $watch
+      form.unwatchFuncs = prepareWatch(vm, form)
+
+      form.classList.add('auto-form')
+      vm.$onAutoFormSubmit = function (event) {
+        removeFormErrors(form)
+
         // fires before we do anything
-        this.$dispatch('beforeFormSubmit', this)
+        vm.$dispatch('beforeFormSubmit', form)
 
         // fires whenever an error occurs
         var handleError = function (err) {
-          this.$dispatch('onFormError', this, err)
-        }.bind(this)
+          vm.$dispatch('onFormError', form, err)
+        }
 
         // set a default form method
-        if (!this.method) {
-          this.method = 'post'
+        if (!vm.method) {
+          vm.method = 'post'
         }
 
         // fires when the form returns a result
         var handleFinish = function (data) {
           if (xhr.readyState === 4) {
             // a check to make sure the result was a success
+            var response = {
+              status: xhr.status,
+              data: xhr.response
+            }
             if (xhr.status < 400) {
-              this.$dispatch('onFormComplete', this, xhr.response)
+              vm.$dispatch('onFormComplete', form, response)
             } else {
-              var response = {
-                status: xhr.status,
-                data: xhr.response
-              }
-              this.$dispatch('onFormError', this, response)
+              serverFormErrors(form, response)
+              vm.$dispatch('onFormError', form, response)
             }
           }
-        }.bind(this)
+        }
 
         var handleProgress = function (evt) {
           // flag indicating if the resource has a length that can be calculated
           if (evt.lengthComputable) {
             // create a new lazy property for percent
             evt.percent = (evt.loaded / evt.total) * 100
-            this.$dispatch('onFormProgress', this, evt)
+            vm.$dispatch('onFormProgress', form, evt)
           }
-        }.bind(this)
+        }
 
         var xhr = new window.XMLHttpRequest()
         var data = new window.FormData(event.target)
 
         //  Method fix
-        if (this.selfServer) {
-          var method = this.method.toLowerCase()
+        var method = form.method.toLowerCase()
+        if (selfServer) {
           if (method !== 'post' && method !== 'get') {
             data.append('_method', method)
-            this.method = 'POST'
+            method = 'POST'
           }
         }
 
-        xhr.open(this.method, this.action, true)
+        xhr.open(method, action, true)
 
         // XSRF
-        if (this.selfServer) {
+        if (selfServer) {
           var xsrfToken = resource.getXsrfToken()
           if (xsrfToken) {
             xhr.setRequestHeader('X-XSRF-TOKEN', xsrfToken)
@@ -200,8 +282,8 @@
         }
 
         // you can set the form response type via v-response-type
-        if (this.vResponseType) {
-          xhr.responseType = this.vResponseType
+        if (params.vResponseType) {
+          xhr.responseType = params.vResponseType
         } else {
           xhr.responseType = 'json'
         }
@@ -213,11 +295,52 @@
         xhr.addEventListener('error', handleError)
         xhr.addEventListener('abort', handleError)
         xhr.send(data)
+
         // we have setup all the stuff we needed to
-        this.$dispatch('afterFormSubmit', this)
+        vm.$dispatch('afterFormSubmit', form)
+
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.addEventListener('submit', vm.$onAutoFormSubmit)
+    },
+    update: function (newValue, oldValue) {
+    },
+    unbind: function () {
+      var form = this.el
+      var vm = this.vm
+      form.removeEventListener('submit', vm.$onAutoFormSubmit)
+
+      var unwatchFuncs = form.unwatchFuncs
+      for (var i = 0; i < unwatchFuncs.length; i++) {
+        var func = unwatchFuncs[i]
+        func()
       }
     }
   })
+
+  function emptyDom (dom) {
+    while (dom.childNodes.length) {
+      var childNode = dom.childNodes[0]
+      dom.removeChild(childNode)
+    }
+  }
+
+  function prepareWatch (vm, form) {
+    var unwatchFuncs = []
+    var fields = form.querySelectorAll('[v-model]')
+    for (var i = 0; i < fields.length; i++) {
+      var field = fields[i];
+      (function (field) {
+        var modelName = field.attributes.getNamedItem('v-model').value
+        unwatchFuncs.push(vm.$watch(modelName, function (newValue, oldValue) {
+          removeFormError(form, field.name)
+        }))
+      })(field)
+    }
+    return unwatchFuncs
+  }
 
   function prepareErrorBoxes (form) {
     var bigErrorNode = document.createElement('div')
@@ -227,9 +350,13 @@
     var fieldDoms = form.getElementsByClassName('field')
     for (var i = 0; i < fieldDoms.length; i++) {
       var fieldDom = fieldDoms[i]
-      var errorNode = document.createElement('div')
-      errorNode.className = 'ui basic red pointing prompt label transition error-label'
-      fieldDom.appendChild(errorNode)
+      var field = fieldDom.querySelector('[name]')
+      if (field) {
+        var fieldName = field.name
+        var errorNode = document.createElement('div')
+        errorNode.className = 'ui basic red pointing prompt label transition error-label field-error-' + fieldName
+        fieldDom.appendChild(errorNode)
+      }
     }
   }
 
@@ -280,16 +407,13 @@
       errorBox.classList.add('full-display')
     }
   }
-  //  //
-  //  function removeFormError (form, field_name) {
-  //    var input = form.find("[name='" + field_name + "']")
-  //    var input_parent = input.parentsUntil('.field').parent()
-  //    if (input_parent.length === 0) {
-  //      input_parent = input.parent('.field')
-  //    }
-  //    input.siblings('.error-label').remove()
-  //    input_parent.removeClass('error')
-  //  }
+
+  function removeFormError (form, field_name) {
+    var field = form.querySelector('.field-error-' + field_name)
+    emptyDom(field)
+    field.classList.remove('full-display')
+    field.parentNode.classList.remove('error')
+  }
 
   function removeFormErrors (form) {
     form.classList.remove('error')
@@ -307,13 +431,6 @@
     var errorBox = form.querySelector('.error-box')
     emptyDom(errorBox)
     errorBox.classList.remove('full-display')
-  }
-
-  function emptyDom (dom) {
-    while (dom.childNodes.length) {
-      var childNode = dom.childNodes[0]
-      dom.removeChild(childNode)
-    }
   }
 
 </script>

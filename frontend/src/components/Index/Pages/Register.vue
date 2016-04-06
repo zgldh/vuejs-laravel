@@ -9,19 +9,19 @@
           <form class="ui form" action="auth/register" method="post" is="auto-form">
             <div class="field">
               <label>电子邮箱</label>
-              <input type="email" name="email" placeholder="用户登录" v-model="form.email">
+              <input type="email" name="email" placeholder="用户登录" v-model="email">
             </div>
             <div class="field">
               <label>昵称</label>
-              <input type="text" name="name" placeholder="别人怎么称呼你" v-model="form.name">
+              <input type="text" name="name" placeholder="别人怎么称呼你" v-model="name">
             </div>
             <div class="field">
               <label>密码</label>
-              <input type="password" name="password" placeholder="" v-model="form.password">
+              <input type="password" name="password" placeholder="" v-model="password">
             </div>
             <div class="field">
               <label>重复密码</label>
-              <input type="password" name="password_confirmation" placeholder="" v-model="form.password_confirmation">
+              <input type="password" name="password_confirmation" placeholder="" v-model="password_confirmation">
             </div>
             <button class="ui primary button" type="submit">注册</button>
           </form>

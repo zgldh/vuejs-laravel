@@ -32,6 +32,14 @@
    */
   Vue.component('auto-form', {
     name: 'auto-form',
+    data: function () {
+      return {
+        email: '',
+        name: '',
+        password: '',
+        password_confirmation: ''
+      }
+    },
     props: {
       'id': String,
       'class': String,
@@ -67,20 +75,50 @@
           }
         }
       },
-      'response-type': String
+      'v-response-type': String
     },
-    template: '<form v-bind:id="id" v-bind:class="class" v-bind:name="name" ' +
-    'v-bind:action="action" v-bind:method="method" v-bind:response-type="responseType" ' +
-    'is="ajax-form"><slot></slot></form>',
+    template: '<form id="{{id}}" class="{{class}} auto-form" name="{{name}}" action="{{action}}" method="{{method}}" v-on:submit.prevent="handleAjaxFormSubmit" ><slot></slot></form>',
+    created: function () {
+      this.selfServer = true
+      if (/https?:\/\//.test(this.action) === true) {
+        this.selfServer = false
+      }
+      else {
+        this.action = Vue.http.options.root + this.action
+      }
+    },
+    compiled: function () {
+      var form = this.$el
+      // Prepare error box
+      prepareErrorBoxes(form)
+    },
+    ready: function () {
+//      var form = this.$el
+//      var fieldInputs = form.querySelectorAll('[name]')
+//      for (var i = 0; i < fieldInputs.length; i++) {
+//        var name = fieldInputs[i].name
+//      }
+//      this.$watch('name', function (newValue, oldValue) {
+//        console.log('watch', newValue)
+//      })
+      this.$log()
+    },
+    watch: {
+      name: {
+        handler: function (data) {
+          console.log('watch', data)
+        }
+      }
+    },
     events: {
       beforeFormSubmit: function (el) {
         // fired after form is submitted
         console.log('beforeFormSubmit', el)
-        el.action = Vue.http.options.root + this.action
       },
       afterFormSubmit: function (el) {
         // fired after fetch is called
         console.log('afterFormSubmit', el)
+        removeFormErrors(this.$el)
       },
       onFormComplete: function (el, res) {
         // the form is done, but there could still be errors
@@ -96,22 +134,7 @@
       },
       onFormError: function (el, err) {
         // handle errors
-        console.log('onFormError', el, err)
-        // indicate the changes
-        this.response = err
-      }
-    }
-  })
-  Vue.component('ajax-form', {
-    name: 'ajax-form',
-    props: ['id', 'class', 'action', 'method', 'response-type'],
-    template: '<form id="{{ id }}" class="{{ class }}" name="{{ name }}" action="{{ action }}" method="{{ method }}" ' +
-    'response-type="{{responseType}}" v-on:submit.prevent="handleAjaxFormSubmit">' +
-    '<slot></slot></form>',
-    created: function () {
-      this.selfServer = true
-      if (/https?:\/\//.test(this.action) === true) {
-        this.selfServer = false
+        serverFormErrors(this.$el, err)
       }
     },
     methods: {
@@ -136,7 +159,11 @@
             if (xhr.status < 400) {
               this.$dispatch('onFormComplete', this, xhr.response)
             } else {
-              this.$dispatch('onFormError', this, xhr.statusText)
+              var response = {
+                status: xhr.status,
+                data: xhr.response
+              }
+              this.$dispatch('onFormError', this, response)
             }
           }
         }.bind(this)
@@ -173,8 +200,8 @@
         }
 
         // you can set the form response type via v-response-type
-        if (this.responseType) {
-          xhr.responseType = this.responseType
+        if (this.vResponseType) {
+          xhr.responseType = this.vResponseType
         } else {
           xhr.responseType = 'json'
         }
@@ -192,157 +219,102 @@
     }
   })
 
-  //  Vue.directive('auto-form', {
-  //    params: ['action'],
-  //    bind: function () {
-  //      console.log('auto-form: bind', this)
-  //      var params = this.params
-  //      var expression = this.expression
-  //      var form = this.el
-  //      var vm = this.vm
-  //
-  //      // Prepare error boxes
-  //      prepareErrorBoxes(form)
-  //
-  //      form.classList.add('auto-form')
-  //      vm.$onAutoFormSubmit = function (e) {
-  //        var data = getFormData()
-  //        var beforeAutoFormSubmit = vm.beforeAutoFormSubmit
-  //        if (beforeAutoFormSubmit) {
-  //          data = beforeAutoFormSubmit(data)
-  //        }
-  //
-  //        if (data !== false) {
-  //          var url = params.action
-  //          var method = form.method
-  //          Vue.http({url: Vue.http.options.root + url, method: method, data: data}).then(function (response) {
-  //            console.log('auto-form: submit success', response)
-  //            form.classList.remove('loading')
-  //          }, function (response) {
-  //            console.log('auto-form: submit error', response)
-  //            form.classList.remove('loading')
-  //            serverFormErrors(response)
-  //          })
-  //
-  //          form.classList.add('loading')
-  //          removeFormErrors(form)
-  //        }
-  //
-  //        e.preventDefault()
-  //        e.stopPropagation()
-  //      }
-  //
-  //      function prepareErrorBoxes (form) {
-  //        var bigErrorNode = document.createElement('div')
-  //        bigErrorNode.className = 'ui error message error-box'
-  //        form.insertBefore(bigErrorNode, form.firstChild)
-  //
-  //        var fieldDoms = form.getElementsByClassName('field')
-  //        for (var i = 0; i < fieldDoms.length; i++) {
-  //          var fieldDom = fieldDoms[i]
-  //          var errorNode = document.createElement('div')
-  //          errorNode.className = 'ui basic red pointing prompt label transition error-label'
-  //          fieldDom.appendChild(errorNode)
-  //        }
-  //      }
-  //
-  //      var getFormData = function () {
-  //        return JSON.parse(JSON.stringify(vm[expression]))
-  //      }
-  //
-  //      var serverFormErrors = function (response) {
-  //        var remainingErrors = {}
-  //        if (response.status === 422) {
-  //          for (var key in response.data) {
-  //            if (response.data.hasOwnProperty(key)) {
-  //              var fieldInput = form.querySelector('[name="' + key + '"]')
-  //              var fieldDom = fieldInput ? fieldInput.parentNode : null
-  //              if (!fieldDom) {
-  //                remainingErrors[key] = response.data[key]
-  //                continue
-  //              }
-  //              appendFormError(fieldDom, response.data[key])
-  //            }
-  //          }
-  //          appendBundleErrors(form, remainingErrors)
-  //        }
-  //      }
-  //
-  //      var appendFormError = function (fieldDom, errors) {
-  //        fieldDom.classList.add('error')
-  //        var errorNode = fieldDom.querySelector('.error-label')
-  //        for (var i = 0; i < errors.length; i++) {
-  //          var textNode = document.createTextNode(errors[i])
-  //          errorNode.appendChild(textNode)
-  //          errorNode.appendChild(document.createElement('br'))
-  //        }
-  //        errorNode.classList.add('full-display')
-  //        errorNode.classList.add('basic')
-  //      }
-  //
-  //      var appendBundleErrors = function (form, errors) {
-  //        if (errors) {
-  //          form.classList.add('error')
-  //          var errorBox = form.querySelector('.error-box')
-  //          for (var key in errors) {
-  //            if (errors.hasOwnProperty(key)) {
-  //              var errorItems = errors[key]
-  //              for (var i = 0; i < errorItems.length; i++) {
-  //                var pNode = document.createElement('p')
-  //                pNode.appendChild(document.createTextNode(errorItems[i]))
-  //                errorBox.appendChild(pNode)
-  //              }
-  //            }
-  //          }
-  //          errorBox.classList.add('full-display')
-  //        }
-  //      }
-  //      //
-  //      // var removeFormError = function (form, field_name) {
-  //      //   var input = form.find("[name='" + field_name + "']")
-  //      //   var input_parent = input.parentsUntil('.field').parent()
-  //      //   if (input_parent.length === 0) {
-  //      //     input_parent = input.parent('.field')
-  //      //   }
-  //      //   input.siblings('.error-label').remove()
-  //      //   input_parent.removeClass('error')
-  //      // }
-  //      //
-  //      var removeFormErrors = function (form) {
-  //        form.classList.remove('error')
-  //        var fieldDoms = form.querySelectorAll('.field.error')
-  //        for (var i = 0; i < fieldDoms.length; i++) {
-  //          var fieldDom = fieldDoms[i]
-  //          fieldDom.classList.remove('error')
-  //        }
-  //        var errorLabels = form.querySelectorAll('.error-label')
-  //        for (i = 0; i < errorLabels.length; i++) {
-  //          var errorLabel = errorLabels[i]
-  //          emptyDom(errorLabel)
-  //          errorLabel.classList.remove('full-display')
-  //        }
-  //        var errorBox = form.querySelector('.error-box')
-  //        emptyDom(errorBox)
-  //        errorBox.classList.remove('full-display')
-  //      }
-  //
-  //      form.addEventListener('submit', vm.$onAutoFormSubmit)
-  //    },
-  //    update: function (newValue, oldValue) {
-  //    },
-  //    unbind: function () {
-  //      var form = this.el
-  //      var vm = this.vm
-  //      form.removeEventListener('submit', vm.$onAutoFormSubmit)
+  function prepareErrorBoxes (form) {
+    var bigErrorNode = document.createElement('div')
+    bigErrorNode.className = 'ui error message error-box'
+    form.insertBefore(bigErrorNode, form.firstChild)
+
+    var fieldDoms = form.getElementsByClassName('field')
+    for (var i = 0; i < fieldDoms.length; i++) {
+      var fieldDom = fieldDoms[i]
+      var errorNode = document.createElement('div')
+      errorNode.className = 'ui basic red pointing prompt label transition error-label'
+      fieldDom.appendChild(errorNode)
+    }
+  }
+
+  function serverFormErrors (form, response) {
+    var remainingErrors = {}
+    if (response.status === 422) {
+      for (var key in response.data) {
+        if (response.data.hasOwnProperty(key)) {
+          var fieldInput = form.querySelector('[name="' + key + '"]')
+          var fieldDom = fieldInput ? fieldInput.parentNode : null
+          if (!fieldDom) {
+            remainingErrors[key] = response.data[key]
+            continue
+          }
+          appendFormError(fieldDom, response.data[key])
+        }
+      }
+      appendBundleErrors(form, remainingErrors)
+    }
+  }
+
+  function appendFormError (fieldDom, errors) {
+    fieldDom.classList.add('error')
+    var errorNode = fieldDom.querySelector('.error-label')
+    for (var i = 0; i < errors.length; i++) {
+      var textNode = document.createTextNode(errors[i])
+      errorNode.appendChild(textNode)
+      errorNode.appendChild(document.createElement('br'))
+    }
+    errorNode.classList.add('full-display')
+    errorNode.classList.add('basic')
+  }
+
+  function appendBundleErrors (form, errors) {
+    if (errors) {
+      form.classList.add('error')
+      var errorBox = form.querySelector('.error-box')
+      for (var key in errors) {
+        if (errors.hasOwnProperty(key)) {
+          var errorItems = errors[key]
+          for (var i = 0; i < errorItems.length; i++) {
+            var pNode = document.createElement('p')
+            pNode.appendChild(document.createTextNode(errorItems[i]))
+            errorBox.appendChild(pNode)
+          }
+        }
+      }
+      errorBox.classList.add('full-display')
+    }
+  }
+  //  //
+  //  function removeFormError (form, field_name) {
+  //    var input = form.find("[name='" + field_name + "']")
+  //    var input_parent = input.parentsUntil('.field').parent()
+  //    if (input_parent.length === 0) {
+  //      input_parent = input.parent('.field')
   //    }
-  //  })
-  //
-  //  function emptyDom (dom) {
-  //    while (dom.childNodes.length) {
-  //      var childNode = dom.childNodes[0]
-  //      dom.removeChild(childNode)
-  //    }
+  //    input.siblings('.error-label').remove()
+  //    input_parent.removeClass('error')
   //  }
+
+  function removeFormErrors (form) {
+    form.classList.remove('error')
+    var fieldDoms = form.querySelectorAll('.field.error')
+    for (var i = 0; i < fieldDoms.length; i++) {
+      var fieldDom = fieldDoms[i]
+      fieldDom.classList.remove('error')
+    }
+    var errorLabels = form.querySelectorAll('.error-label')
+    for (i = 0; i < errorLabels.length; i++) {
+      var errorLabel = errorLabels[i]
+      emptyDom(errorLabel)
+      errorLabel.classList.remove('full-display')
+    }
+    var errorBox = form.querySelector('.error-box')
+    emptyDom(errorBox)
+    errorBox.classList.remove('full-display')
+  }
+
+  function emptyDom (dom) {
+    while (dom.childNodes.length) {
+      var childNode = dom.childNodes[0]
+      dom.removeChild(childNode)
+    }
+  }
 
 </script>
 
@@ -352,11 +324,11 @@
       display: block !important;
     }
     .ui.label.error-label, .error-box {
-      -webkit-transition: padding .3s, opacity .3s, height .3s;
-      -moz-transition: padding .3s, opacity .3s, height .3s;
-      -ms-transition: padding .3s, opacity .3s, height .3s;
-      -o-transition: padding .3s, opacity .3s, height .3s;
-      transition: padding .3s, opacity .3s, height .3s;
+      -webkit-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      -moz-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      -ms-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      -o-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
       line-height: 1.5em;
 
       opacity: 0;

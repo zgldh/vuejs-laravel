@@ -34,7 +34,7 @@ VueJS + webpack + semantic-UI + Laravel
 
 然后访问 http://localhost:8080 
 
-``` frontend/src ``` 目录包含了前端代码
+``` frontend/src ``` 目录包含了前端代码。代码改动能实时反映在浏览器里，我百思不得其解。
 
 ``` backend ``` 目录里面就是典型的Laravel后端代码
 
@@ -49,7 +49,7 @@ VueJS + webpack + semantic-UI + Laravel
 
 ### 参考资料
 
-- Laravel: http://www.golaravel.com/
+- Laravel: http://www.laravel.com/
 - VueJS:  http://www.vuejs.org
 - Webpack: http://webpack.github.io
 - Semantic-UI: http://semantic-ui.cn

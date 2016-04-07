@@ -20,6 +20,9 @@ VueJS + webpack + semantic-UI + Laravel
     
     cd ../frontend
     npm install
+    cd src/semantic
+    npm build
+    cd ../..
     npm run dev
     // https://github.com/vuejs/vue-loader-example
     

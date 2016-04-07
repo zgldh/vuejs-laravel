@@ -34,6 +34,7 @@ VueJS + webpack + semantic-UI + Laravel
 ```
 
 然后访问 http://localhost:8080 
+
 ``` frontend/src ``` 目录包含了前端代码
 
 ``` backend ``` 目录里面就是典型的Laravel后端代码
@@ -47,7 +48,7 @@ VueJS + webpack + semantic-UI + Laravel
 
 然后编译过的前端代码就出现在 ``` public ``` 目录下。
 
-参考资料
+### 参考资料
 
 - Laravel: http://www.golaravel.com/
 - VueJS:  http://www.vuejs.org

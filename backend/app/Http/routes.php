@@ -26,16 +26,6 @@ Route::get('/', function () {
 |
 */
 
-Route::options('{slug}', function () {
-  $response = new \Illuminate\Http\Response();
-  if (env('APP_ENV') !== 'live') {
-    $response->headers->add([
-      'Access-Control-Allow-Origin' => \Request::header('Origin')
-    ]);
-  }
-  return $response;
-})->where('slug', '([A-z\d-\/_.]+)?');
-
 Route::group(['prefix' => 'api', 'middleware' => ['web']], function () {
   //
   Route::post('auth/register', 'Auth\AuthController@postRegister');

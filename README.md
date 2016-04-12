@@ -12,18 +12,28 @@ VueJS + webpack + semantic-UI + Laravel
 
 ## 安装
 
+1. 克隆代码
+2. 安装后台
+
 ```
-    
     cd backend
     composer install
     // https://laravel.com/docs/5.2
-    
-    cd ../frontend
+    php artisan key:generate
+    php artisan migrate
+```
+
+3. 配置后台服务器。 例如域名为 `vuejs-laravel`
+4. 安装前台
+
+```
+    cd frontend
     npm install
-    npm run dev
-    // https://github.com/vuejs/vue-loader-example
     
 ```
+
+5. 配置前台后台代理。打开 `frontend/build/dev-server.js`, 修改变量 `devBackendDomain` 为第三步的域名。
+6. 完毕
 
 ## 开发
 

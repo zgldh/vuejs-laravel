@@ -23,7 +23,7 @@ VueJS + webpack + semantic-UI + Laravel
     php artisan migrate
 ```
 
-3. 配置后台服务器。 例如域名为 `vuejs-laravel`
+3. 配置Web服务器，需要支持 PHP5.6 以上。 例如域名为 `vuejs-laravel`。服务器 root 配置到项目的`public`目录下。(**千万注意不是`backend/public`**)
 4. 安装前台
 
 ```
@@ -55,7 +55,7 @@ VueJS + webpack + semantic-UI + Laravel
     npm run build
 ```
 
-然后编译过的前端代码就出现在 ``` public ``` 目录下。
+然后编译过的前端代码就出现在 ``` public ``` 目录下。访问你本地的Web服务器即可浏览。
 
 ### 参考资料
 

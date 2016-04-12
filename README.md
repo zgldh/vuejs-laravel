@@ -3,11 +3,12 @@ VueJS + webpack + semantic-UI + Laravel
 
 
 - 前后分离的快速开发框架。 
-- 自带Laravel基础的账号系统。
+- 自带 Laravel 基础的账号系统。
 - 前端单页面Web应用
-- Webpack构建前段页面
-- 使用babel来支持ECMAScript6
-- 使用Vue的单文件组件
+- Webpack 构建前段页面
+- 使用 babel 来支持 ECMAScript6
+- 使用 Vue 的单文件组件
+- 使用 `http-proxy` 来解决前后端在开发模式下的Cookie问题。
 
 
 ## 安装
@@ -59,9 +60,9 @@ VueJS + webpack + semantic-UI + Laravel
 
 ### 参考资料
 
-- Laravel: http://www.laravel.com/
-- VueJS:  http://www.vuejs.org
-- Webpack: http://webpack.github.io
-- Semantic-UI: http://semantic-ui.cn
+- Laravel: [http://www.laravel.com](http://www.laravel.com)
+- VueJS:  [http://www.vuejs.org](http://www.vuejs.org)
+- Webpack: [http://webpack.github.io](http://webpack.github.io)
+- Semantic-UI: [http://semantic-ui.cn](http://semantic-ui.cn)
 
 待续

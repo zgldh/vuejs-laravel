@@ -33,9 +33,7 @@
   Vue.directive('auto-form', {
     params: ['action', 'v-response-type'],
     bind: function () {
-      console.log('auto-form: bind', this)
       var params = this.params
-//      var expression = this.expression
       var form = this.el
       var vm = this.vm
 
@@ -45,7 +43,7 @@
         selfServer = false
       }
       else {
-        action = Vue.http.options.root + action
+        action = Vue.http.options.root + '/' + action
       }
 
       // Prepare error boxes
@@ -57,6 +55,7 @@
       form.classList.add('auto-form')
       vm.$onAutoFormSubmit = function (event) {
         removeFormErrors(form)
+        form.classList.add('loading')
 
         // fires before we do anything
         vm.$dispatch('beforeFormSubmit', form)
@@ -74,6 +73,7 @@
         // fires when the form returns a result
         var handleFinish = function (data) {
           if (xhr.readyState === 4) {
+            form.classList.remove('loading')
             // a check to make sure the result was a success
             var response = {
               status: xhr.status,
@@ -232,6 +232,7 @@
     if (errors) {
       form.classList.add('error')
       var errorBox = form.querySelector('.error-box')
+      var hasErrors = false
       for (var key in errors) {
         if (errors.hasOwnProperty(key)) {
           var errorItems = errors[key]
@@ -239,10 +240,13 @@
             var pNode = document.createElement('p')
             pNode.appendChild(document.createTextNode(errorItems[i]))
             errorBox.appendChild(pNode)
+            hasErrors = true
           }
         }
       }
-      errorBox.classList.add('full-display')
+      if (hasErrors) {
+        errorBox.classList.add('full-display')
+      }
     }
   }
 

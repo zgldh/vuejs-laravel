@@ -35,6 +35,7 @@
 
 <script>
   import '../../../extensions/AutoForm.vue'
+  import CurrentUserProvider from '../../../extensions/CurrentUserProvier.vue'
 
   export default {
     data () {
@@ -48,7 +49,13 @@
         }
       }
     },
-    methods: {},
+    events: {},
+    methods: {
+      getCurrentUser: function () {
+        var data = CurrentUserProvider.getCurrentUser()
+        console.log(data)
+      }
+    },
     components: {}
   }
 </script>

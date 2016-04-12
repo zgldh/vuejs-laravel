@@ -1,9 +1,14 @@
 var express = require('express')
 var webpack = require('webpack')
 var config = require('./webpack.dev.conf')
+var httpProxy = require('http-proxy')
+
+var devBackendDomain = 'vuejs-laravel'  // The same domain as it in 'backend/config/app.php'
+var devBackendURL = 'http://' + devBackendDomain
 
 var app = express()
 var compiler = webpack(config)
+var proxy = httpProxy.createProxyServer();
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
@@ -17,11 +22,20 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler)
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({action: 'reload'})
     cb()
   })
 })
 
+//Backend Proxy
+app.use(function (req, res, next) {
+  if (/\/api\/.*$/.test(req.url)) {
+    req.headers.host = devBackendDomain
+    proxy.web(req, res, {target: devBackendURL});
+  } else {
+    next();
+  }
+});
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
 // serve webpack bundle output

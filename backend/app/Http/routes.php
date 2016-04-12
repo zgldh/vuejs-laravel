@@ -33,11 +33,10 @@ Route::options('{slug}', function () {
       'Access-Control-Allow-Origin' => \Request::header('Origin')
     ]);
   }
-  \Log::info(json_encode($response));
   return $response;
 })->where('slug', '([A-z\d-\/_.]+)?');
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['prefix' => 'api', 'middleware' => ['web']], function () {
   //
   Route::post('auth/register', 'Auth\AuthController@postRegister');
   Route::get('current_user', 'HomeController@getCurrentUser');

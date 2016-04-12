@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
-Vue.http.options.root = 'http://vuejs-laravel/'
+Vue.http.options.root = 'api'  // No tail slash
 Vue.http.options.emulateHTTP = true
 Vue.http.options.emulateJSON = true
 Vue.http.interceptors.push({

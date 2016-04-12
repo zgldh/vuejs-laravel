@@ -8,19 +8,16 @@
 </template>
 
 <script>
-  require('../../semantic/dist/semantic.js')
-  var SiteNav = require('./Common/SiteNav')
+  import '../../semantic/dist/semantic.js'
+  import SiteNav from './Common/SiteNav.vue'
+  import CurrentUserProvider from '../../extensions/CurrentUserProvier.vue'
 
   export default {
     components: {
       SiteNav
     },
     ready: function () {
-      this.$http.get('current_user').then(function (re) {
-        console.debug('First current_user at App.vue', arguments)
-      }, function (err) {
-        console.debug('First current_user at App.vue', arguments, err)
-      })
+      CurrentUserProvider.loadFromServer()
     }
   }
 </script>

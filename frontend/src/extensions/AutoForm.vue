@@ -200,7 +200,7 @@
 
   function serverFormErrors (form, response) {
     var remainingErrors = {}
-    if (response.status === 422) {
+    if (response.status >= 400) {
       for (var key in response.data) {
         if (response.data.hasOwnProperty(key)) {
           var fieldInput = form.querySelector('[name="' + key + '"]')
@@ -218,6 +218,9 @@
 
   function appendFormError (fieldDom, errors) {
     fieldDom.classList.add('error')
+    if (typeof (errors) === 'string') {
+      errors = [errors]
+    }
     var errorNode = fieldDom.querySelector('.error-label')
     for (var i = 0; i < errors.length; i++) {
       var textNode = document.createTextNode(errors[i])
@@ -229,6 +232,9 @@
   }
 
   function appendBundleErrors (form, errors) {
+    if (typeof (errors) === 'string') {
+      errors = [errors]
+    }
     if (errors) {
       form.classList.add('error')
       var errorBox = form.querySelector('.error-box')

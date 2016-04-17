@@ -8,8 +8,14 @@
     <a class="item">工作</a>
     <a class="item">公司</a>
     <a class="item">招聘</a>
-    <a class="item">登录</a>
+    <a class="item" v-show="isLogin">{{user.name}}</a>
+    <a class="item" v-show="isLogin" @click="logout(event)">退出</a>
     <a class="item"
+       v-show="isLogin===false"
+       v-bind:class="{'active': $route.path=='/login'}"
+       v-link="{path:'/login'}">登录</a>
+    <a class="item"
+       v-show="isLogin===false"
        v-bind:class="{'active': $route.path=='/register'}"
        v-link="{path:'/register'}">注册</a>
   </div>
@@ -27,8 +33,19 @@
         <a class="item">公司</a>
         <a class="item">招聘</a>
         <div class="right menu">
-          <a class="item">登录</a>
+          <a class="ui dropdown item" id="SiteNavUserMenu" v-show="isLogin">
+            {{user.name}}
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="item" @click="logout(event)">退出</div>
+            </div>
+          </a>
           <a class="item"
+             v-show="isLogin===false"
+             v-bind:class="{'active': $route.path=='/login'}"
+             v-link="{path:'/login'}">登录</a>
+          <a class="item"
+             v-show="isLogin===false"
              v-bind:class="{'active': $route.path=='/register'}"
              v-link="{path:'/register'}">注册</a>
         </div>
@@ -38,14 +55,40 @@
 </template>
 
 <script>
-  var $ = require('jquery')
+  import $ from 'jquery'
+  import CurrentUserProvider from '../../../extensions/CurrentUserProvier.vue'
 
   $(document).ready(function () {
     // create sidebar and attach to menu open
     $('.ui.sidebar').sidebar('attach events', '.toc.item,.ui.sidebar>.sidebar-close-item')
+    $('#SiteNavUserMenu').dropdown()
   })
 
   export default {
+    data () {
+      return {
+        isLogin: false,
+        user: {
+          name: null
+        }
+      }
+    },
+    events: {
+      onCurrentUserChanged: function (user) {
+        this.isLogin = user !== null
+        if (this.isLogin) {
+          this.user = user
+        }
+        else {
+          this.user = {name: null}
+        }
+      }
+    },
+    methods: {
+      logout: function (event) {
+        CurrentUserProvider.logout()
+      }
+    },
     components: {}
   }
 </script>

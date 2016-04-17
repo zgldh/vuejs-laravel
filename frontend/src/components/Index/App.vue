@@ -17,6 +17,7 @@
       SiteNav
     },
     ready: function () {
+      CurrentUserProvider.installApp(this)
       CurrentUserProvider.loadFromServer()
     }
   }

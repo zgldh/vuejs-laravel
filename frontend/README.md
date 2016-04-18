@@ -1,6 +1,6 @@
 # frontend
 
-> Vue+Lumen front end project
+> Vue+Laravel front end project
 
 ## Build Setup
 

@@ -25,4 +25,5 @@
 
 <style lang="sass" rel="stylesheet/scss" scoped>
   @import "../../semantic/dist/semantic.css";
+  @import "../../../node_modules/nprogress/nprogress.css";
 </style>

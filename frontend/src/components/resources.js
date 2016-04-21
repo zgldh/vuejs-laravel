@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import NProgress from 'nprogress'
 
 Vue.use(VueResource)
 Vue.http.options.root = 'api'  // No tail slash
@@ -25,10 +26,12 @@ Vue.http.interceptors.push({
         request.method = 'POST'
       }
     }
+    NProgress.start()
     return request
   },
 
   response: function (response) {
+    NProgress.done()
     return response
   }
 })

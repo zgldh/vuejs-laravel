@@ -1,6 +1,7 @@
 <script>
   import Vue from 'vue'
   import resource from '../components/resources'
+  import NProgress from 'nprogress'
   /**
    // Template
    // <form class="ui form" action="current_user" method="post" v-auto-form>
@@ -73,6 +74,7 @@
         // fires when the form returns a result
         var handleFinish = function (data) {
           if (xhr.readyState === 4) {
+            NProgress.done()
             form.classList.remove('loading')
             // a check to make sure the result was a success
             var response = {
@@ -133,6 +135,8 @@
         xhr.addEventListener('error', handleError)
         xhr.addEventListener('abort', handleError)
         xhr.send(data)
+
+        NProgress.inc()
 
         // we have setup all the stuff we needed to
         vm.$dispatch('afterFormSubmit', form)

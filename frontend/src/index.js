@@ -8,4 +8,4 @@ Vue.config.debug = true
 var application = Vue.extend({
   components: {App}
 })
-Router.router.start(application, 'body')
+Router.start(application, 'body')

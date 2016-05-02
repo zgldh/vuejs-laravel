@@ -9,6 +9,7 @@
     },
     setCurrentUser: function (user) {
       currentUser = user
+      vm.$dispatch('onCurrentUserChanged', currentUser)
       vm.$broadcast('onCurrentUserChanged', currentUser)
     },
     getCurrentUser: function () {

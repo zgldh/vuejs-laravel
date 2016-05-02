@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from './Pages/Home.vue'
-import Register from './Pages/Register.vue'
+import Dashboard from './Pages/Dashboard.vue'
 import Login from './Pages/Login.vue'
 
 Vue.use(VueRouter)
@@ -13,13 +12,10 @@ var router = new VueRouter({
 })
 router.map({
   '/': {
-    component: Home
+    component: Dashboard
   },
   '/login': {
     component: Login
-  },
-  '/register': {
-    component: Register
   }
 })
 export default router

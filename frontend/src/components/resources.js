@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import NProgress from 'nprogress'
 
+NProgress.configure({ showSpinner: false })
+
 Vue.use(VueResource)
 Vue.http.options.root = 'api'  // No tail slash
 Vue.http.options.emulateHTTP = true

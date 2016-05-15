@@ -260,8 +260,8 @@
     }
   }
 
-  function removeFormError (form, field_name) {
-    var field = form.querySelector('.field-error-' + field_name)
+  function removeFormError (form, fieldName) {
+    var field = form.querySelector('.field-error-' + fieldName)
     emptyDom(field)
     field.classList.remove('full-display')
     field.parentNode.classList.remove('error')
@@ -287,7 +287,7 @@
 
 </script>
 
-<style lang="sass" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss">
   .auto-form {
     .error-box {
       display: block !important;

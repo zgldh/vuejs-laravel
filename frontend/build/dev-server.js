@@ -1,17 +1,23 @@
+var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
-var config = require('./webpack.dev.conf')
-var httpProxy = require('http-proxy')
+var config = require('../config')
+var proxyMiddleware = require('http-proxy-middleware')
+var webpackConfig = process.env.NODE_ENV === 'testing'
+  ? require('./webpack.prod.conf')
+  : require('./webpack.dev.conf')
 
-var devBackendDomain = 'vuejs-laravel'  // The same domain as it in 'backend/config/app.php'
-var devBackendURL = 'http://' + devBackendDomain
+// default port where dev server listens for incoming traffic
+var port = process.env.PORT || config.dev.port
+// Define HTTP proxies to your custom API backend
+// https://github.com/chimurai/http-proxy-middleware
+var proxyTable = config.dev.proxyTable
 
 var app = express()
-var compiler = webpack(config)
-var proxy = httpProxy.createProxyServer();
+var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath,
+  publicPath: webpackConfig.output.publicPath,
   stats: {
     colors: true,
     chunks: false
@@ -22,32 +28,38 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler)
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({action: 'reload'})
+    hotMiddleware.publish({ action: 'reload' })
     cb()
   })
 })
 
-//Backend Proxy
-app.use(function (req, res, next) {
-  if (/\/api\/.*$/.test(req.url)) {
-    req.headers.host = devBackendDomain
-    proxy.web(req, res, {target: devBackendURL});
-  } else {
-    next();
+// proxy api requests
+Object.keys(proxyTable).forEach(function (context) {
+  var options = proxyTable[context]
+  if (typeof options === 'string') {
+    options = { target: options }
   }
-});
+  app.use(proxyMiddleware(context, options))
+})
+
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
+
 // serve webpack bundle output
 app.use(devMiddleware)
+
 // enable hot-reload and state-preserving
 // compilation error display
 app.use(hotMiddleware)
 
-app.listen(8080, function (err) {
+// serve pure static assets
+var staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory)
+app.use(staticPath, express.static('./static'))
+
+module.exports = app.listen(port, function (err) {
   if (err) {
     console.log(err)
     return
   }
-  console.log('Listening at http://localhost:8080')
+  console.log('Listening at http://localhost:' + port + '\n')
 })

@@ -1,42 +1,49 @@
 var path = require('path')
+var config = require('../config')
+var utils = require('./utils')
 var webpack = require('webpack')
+var projectRoot = path.resolve(__dirname, '../')
 
 module.exports = {
   entry: {
     index: './src/index.js',
-    admin: './src/admin.js',
+    admin: './src/admin.js'
   },
   output: {
-    path: path.resolve(__dirname, '../../public/dist'),
-    publicPath: '/dist/',
-    filename: '[name].js',
-    chunkFilename: "[id].chunk.js"
+    path: config.build.assetsRoot,
+    publicPath: config.build.assetsPublicPath,
+    filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.css', '.sass', '.scss', '.vue'],
+    extensions: ['', '.js', '.vue', '.css', '.sass', '.scss'],
+    fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      'src': path.resolve(__dirname, '../src')
+      'src': path.resolve(__dirname, '../src'),
+      'assets': path.resolve(__dirname, '../src/assets'),
+      'components': path.resolve(__dirname, '../src/components')
     }
+  },
+  resolveLoader: {
+    fallback: [path.join(__dirname, '../node_modules')]
   },
   plugins: [
     new webpack.ProvidePlugin({
-      $: "jquery",
-      "jQuery": "jquery"
+      $: 'jquery',
+      'jQuery': 'jquery'
     })
   ],
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
-  },
   module: {
     preLoaders: [
       {
         test: /\.vue$/,
         loader: 'eslint',
+        include: projectRoot,
         exclude: /node_modules/
       },
       {
         test: /\.js$/,
         loader: 'eslint',
+        include: projectRoot,
         exclude: /node_modules|semantic/
       }
     ],
@@ -48,6 +55,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
+        include: projectRoot,
         exclude: /node_modules/
       },
       {
@@ -55,25 +63,39 @@ module.exports = {
         loader: 'json'
       },
       {
-        test: /\.scss$/,
-        loader: 'scss'
+        test: /\.html$/,
+        loader: 'vue-html'
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
           limit: 10000,
-          name: '[name].[ext]?[hash:7]'
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
-      {test: /\.woff$/, loader: "url-loader?limit=10000&mimetype=application/font-woff"},
-      {test: /\.woff2$/, loader: "url-loader?limit=10000&mimetype=application/font-woff2"},
-      {test: /\.ttf$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream"},
-      {test: /\.eot$/, loader: "file-loader"},
-      {test: /\.svg$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml"}
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+          mimetype: 'image/svg+xml'
+        }
+      }
     ]
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')
+  },
+  vue: {
+    loaders: utils.cssLoaders()
   }
 }

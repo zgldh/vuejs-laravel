@@ -8,7 +8,7 @@ VueJS + webpack + semantic-UI + Laravel
 - Webpack 构建前段页面
 - 使用 babel 来支持 ECMAScript6
 - 使用 Vue 的单文件组件
-- 使用 `http-proxy` 来解决前后端在开发模式下的Cookie问题。
+- 使用最新的 vue-cli 2.0
 
 
 ## 安装
@@ -33,7 +33,7 @@ VueJS + webpack + semantic-UI + Laravel
         
     ```
 
-5. 配置前台后台代理。打开 `frontend/build/dev-server.js`, 修改变量 `devBackendDomain` 为第三步的域名。
+5. 配置前台后台代理。打开 `frontend/config.js`, 修改 `proxyTable` 来连接后台API。 参考： [http://vuejs-templates.github.io/webpack/proxy.html](http://vuejs-templates.github.io/webpack/proxy.html)
 6. 完毕
 
 ## 开发
@@ -62,6 +62,7 @@ VueJS + webpack + semantic-UI + Laravel
 
 - Laravel: [http://www.laravel.com](http://www.laravel.com)
 - VueJS:  [http://www.vuejs.org](http://www.vuejs.org)
+- VueJS Templates: [http://vuejs-templates.github.io/webpack/index.html](http://vuejs-templates.github.io/webpack/index.html)
 - Webpack: [http://webpack.github.io](http://webpack.github.io)
 - Semantic-UI: [http://semantic-ui.cn](http://semantic-ui.cn)
 

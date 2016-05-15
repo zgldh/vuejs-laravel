@@ -4,8 +4,9 @@ var path = require('path')
 module.exports = {
   build: {
     index: path.resolve(__dirname, '../public/index.html'),
-    assetsRoot: path.resolve(__dirname, '../public'),  // path
-    assetsSubDirectory: 'static',
+    admin: path.resolve(__dirname, '../public/admin.html'),
+    assetsRoot: path.resolve(__dirname, '../public'),
+    assetsSubDirectory: 'dist',
     assetsPublicPath: '/',
     productionSourceMap: true
   },

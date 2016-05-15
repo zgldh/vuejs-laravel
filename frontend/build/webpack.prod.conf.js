@@ -42,7 +42,7 @@ module.exports = merge(baseWebpackConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
+        ? '../index.html'
         : config.build.index,
       template: 'src/index.html',
       inject: true,
@@ -57,7 +57,7 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
-        ? 'admin.html'
+        ? '../admin.html'
         : config.build.admin,
       template: 'src/admin.html',
       inject: true,

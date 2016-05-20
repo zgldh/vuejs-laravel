@@ -41,7 +41,7 @@
   }
 </script>
 
-<style lang="sass" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
   @import "../../semantic/dist/semantic.css";
   @import "../../../node_modules/nprogress/nprogress.css";
 </style>

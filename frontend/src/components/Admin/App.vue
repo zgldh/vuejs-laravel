@@ -1,11 +1,11 @@
 <template>
   <div v-if="loading">
-    Loading
+    <h1>Loading</h1>
   </div>
   <div v-else>
     <site-nav></site-nav>
 
-    <div class="pusher" style="padding-top:70px;">
+    <div class="pusher">
       <router-view></router-view>
     </div>
   </div>
@@ -44,4 +44,16 @@
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "../../semantic/dist/semantic.css";
   @import "../../../node_modules/nprogress/nprogress.css";
+
+  @media only screen and (max-width: 768px) {
+    .side-menu+.pusher {
+      padding-left: 200px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .side-menu+.pusher {
+      padding-left: 214px;
+    }
+  }
 </style>

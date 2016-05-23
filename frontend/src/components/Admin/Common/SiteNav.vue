@@ -1,55 +1,16 @@
-<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<template>
   <!-- Sidebar Menu -->
-  <div class="ui vertical sidebar menu">
-    <a class="item sidebar-close-item"><i class="chevron left icon"></i> 关闭菜单</a>
-    <a class="item"
-       v-bind:class="{'active': $route.path=='/'}"
-       v-link="{path:'/'}">首页</a>
-    <a class="item">工作</a>
-    <a class="item">公司</a>
-    <a class="item">招聘</a>
-    <a class="item" v-show="isLogin">{{user.name}}</a>
-    <a class="item" v-show="isLogin" @click="logout(event)">退出</a>
-    <a class="item"
-       v-show="isLogin===false"
-       v-bind:class="{'active': $route.path=='/login'}"
-       v-link="{path:'/login'}">登录</a>
-    <a class="item"
-       v-show="isLogin===false"
-       v-bind:class="{'active': $route.path=='/register'}"
-       v-link="{path:'/register'}">注册</a>
-  </div>
-  <!-- Page Contents -->
-  <div class="pusher site-nav-pusher">
-    <div class="ui large fixed pointing menu site-nav">
-      <div class="ui container">
-        <a class="toc item">
-          <i class="sidebar icon"></i>
-        </a>
-        <a class="item"
-           v-bind:class="{'active': $route.path=='/'}"
-           v-link="{path:'/'}">首页</a>
-        <a class="item">工作</a>
-        <a class="item">公司</a>
-        <a class="item">招聘</a>
-        <div class="right menu">
-          <a class="ui dropdown item" id="SiteNavUserMenu" v-show="isLogin">
-            {{user.name}}
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <div class="item" @click="logout(event)">退出</div>
-            </div>
-          </a>
-          <a class="item"
-             v-show="isLogin===false"
-             v-bind:class="{'active': $route.path=='/login'}"
-             v-link="{path:'/login'}">登录</a>
-          <a class="item"
-             v-show="isLogin===false"
-             v-bind:class="{'active': $route.path=='/register'}"
-             v-link="{path:'/register'}">注册</a>
-        </div>
-      </div>
+  <div class="ui left fixed vertical menu side-menu" v-if="isLogin">
+    <div class="ui container">
+      <a class="item self-configuration" title="个人设置">
+        <img class="ui medium circular image" src="/static/images/avatar1.jpg"></a>
+      <a class="item"
+         v-bind:class="{'active': $route.path=='/'}"
+         v-link="{path:'/'}">首页</a>
+      <a class="item">工作</a>
+      <a class="item">公司</a>
+      <a class="item">招聘</a>
+      <a class="item" @click="logout(event)" v-show="isLogin">退出</a>
     </div>
   </div>
 </template>
@@ -60,7 +21,6 @@
 
   export default {
     attached: function () {
-      $('.ui.sidebar').sidebar('attach events', '.toc.item,.ui.sidebar>.sidebar-close-item')
       $('#SiteNavUserMenu').dropdown()
     },
     data: function () {
@@ -91,24 +51,11 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .pusher.site-nav-pusher {
-    min-height: inherit;
-    overflow: visible;
-    z-index: auto;
-
-    .pointing.menu .toc.item {
-      display: none;
-    }
-
-    @media only screen and (max-width: 700px) {
-      .pointing.menu .item,
-      .pointing.menu .menu {
-        display: none;
-      }
-
-      .pointing.menu .toc.item {
-        display: block;
-      }
+  .self-configuration {
+    img {
+      max-height: 64px;
+      width: auto !important;
+      margin: 0 auto;
     }
   }
 </style>

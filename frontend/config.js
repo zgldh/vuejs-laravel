@@ -6,7 +6,7 @@ module.exports = {
     index: path.resolve(__dirname, '../public/index.html'),
     admin: path.resolve(__dirname, '../public/admin.html'),
     assetsRoot: path.resolve(__dirname, '../public'),
-    assetsSubDirectory: 'dist',
+    assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true
   },

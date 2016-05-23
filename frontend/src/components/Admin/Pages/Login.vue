@@ -1,30 +1,42 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
 
   <div class="ui container register-page">
-    <h1 class="ui header"><i class="add user icon"></i> 用户登录</h1>
-    <div class="ui internally celled two column grid">
-      <div class="row">
-        <div class="column">
-
-          <form class="ui form" action="auth/login" method="post" v-auto-form>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui teal image header">
+          <img src="" class="image">
+          <div class="content">
+            管理员登录
+          </div>
+        </h2>
+        <form class="ui large form" action="auth/login" method="post" v-auto-form>
+          <div class="ui stacked segment">
             <div class="field">
-              <label>电子邮箱</label>
-              <input type="email" name="email" placeholder="">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" name="email" placeholder="电子邮箱">
+              </div>
             </div>
             <div class="field">
-              <label>密码</label>
-              <input type="password" name="password" placeholder="">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" name="password" placeholder="密码">
+              </div>
             </div>
-            <button class="ui primary button" type="submit">登录</button>
-            <button class="ui link button" type="button"
-                    @click="forgotPassword(event)">忘记密码
-            </button>
-          </form>
+            <button class="ui fluid large teal submit button" type="submit">登录</button>
+          </div>
 
+          <div class="ui error message"></div>
+
+        </form>
+
+        <div class="ui message">
+          <a href="#" @click="forgotPassword(event)">忘记密码?</a>
         </div>
       </div>
     </div>
   </div>
+
 
 </template>
 
@@ -51,4 +63,18 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  .register-page .column {
+    max-width: 450px;
+  }
+  @media only screen and (max-width: 768px) {
+    .register-page {
+      margin-left: -200px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .register-page {
+      margin-left: -214px;
+    }
+  }
 </style>

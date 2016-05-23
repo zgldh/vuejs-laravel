@@ -17,7 +17,6 @@ module.exports = {
         target: 'http://vuejs-laravel',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
         }
       }
     }

@@ -13,8 +13,8 @@
 
 <script>
   import '../../semantic/dist/semantic.js'
-  import SiteNav from './Common/SiteNav.vue'
-  import Router from './router.js'
+  import SiteNav from 'components/Admin/Common/SiteNav.vue'
+  import Router from 'components/Admin/router'
   import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
   import AdminNavigatorsProvider from 'extensions/AdminNavigatorsProvider.vue'
   import AdminRoutesProvider from 'extensions/AdminRoutesProvider.vue'
@@ -42,6 +42,9 @@
           var user = CurrentUserProvider.getCurrentUser()
           if (!user) {
             Router.go('/login')
+          }
+          else if (!Router.path) {
+            Router.go('/dashboard')
           }
         }.bind(this)
       ).catch(console.log.bind(console))

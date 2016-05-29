@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from './Pages/Dashboard.vue'
-import Login from './Pages/Login.vue'
+import Dashboard from 'components/Admin/Pages/Dashboard.vue'
+import Login from 'components/Admin/Pages/Login.vue'
 
 Vue.use(VueRouter)
 var router = new VueRouter({

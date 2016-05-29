@@ -9,8 +9,8 @@
 
 <script>
   import '../../semantic/dist/semantic.js'
-  import SiteNav from './Common/SiteNav.vue'
-  import CurrentUserProvider from '../../extensions/CurrentUserProvier.vue'
+  import SiteNav from 'components/Index/Common/SiteNav.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
 
   export default {
     components: {

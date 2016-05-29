@@ -34,8 +34,8 @@
 </template>
 
 <script>
-  import '../../../extensions/AutoForm.vue'
-  import CurrentUserProvider from '../../../extensions/CurrentUserProvier.vue'
+  import 'extensions/AutoForm.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
 
   export default {
     data () {

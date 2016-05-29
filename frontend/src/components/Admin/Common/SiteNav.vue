@@ -5,8 +5,8 @@
       <a class="item self-configuration" title="个人设置">
         <img class="ui medium circular image" src="/static/images/avatar1.jpg"></a>
       <a class="item"
-         v-bind:class="{'active': $route.path=='/'}"
-         v-link="{path:'/'}">总览</a>
+         v-bind:class="{'active': $route.path=='/dashboard'}"
+         v-link="{path:'/dashboard'}">总览</a>
 
       <template v-for="item in navigators">
         <div class="item" v-if="item.children">

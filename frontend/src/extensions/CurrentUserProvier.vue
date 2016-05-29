@@ -16,9 +16,10 @@
       return currentUser
     },
     loadFromServer: function () {
-      Vue.http.get('current_user').then(function (re) {
+      return Vue.http.get('current_user').then(function (re) {
         re.data = re.data ? re.data : null
         CurrentUserProvider.setCurrentUser(re.data)
+        return this
       }, function (err) {
         vm.$log(err)
       })

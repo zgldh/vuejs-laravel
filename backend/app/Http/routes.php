@@ -31,7 +31,15 @@
         Route::post('auth/register', 'Auth\AuthController@postRegister');
         Route::post('auth/login', 'Auth\AuthController@postLogin');
         Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
         Route::get('current_user', 'HomeController@getCurrentUser');
         Route::post('current_user', 'HomeController@postCurrentUser');
         Route::delete('current_user', 'HomeController@deleteCurrentUser');
+
+        Route::group([
+            'prefix' => 'admin'
+        ], function () {
+            Route::get('routes', 'Admin\AdminController@getRoutes');
+            Route::get('navigators', 'Admin\AdminController@getNavigators');
+        });
     });

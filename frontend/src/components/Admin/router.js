@@ -11,7 +11,7 @@ var router = new VueRouter({
   history: false
 })
 router.map({
-  '/': {
+  '/dashboard': {
     component: Dashboard
   },
   '/login': {

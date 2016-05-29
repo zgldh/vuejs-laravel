@@ -1,6 +1,6 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
 
-  <div class="ui container register-page">
+  <div class="ui container login-page">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui teal image header">
@@ -41,8 +41,8 @@
 </template>
 
 <script>
-  import '../../../extensions/AutoForm.vue'
-  import CurrentUserProvider from '../../../extensions/CurrentUserProvier.vue'
+  import 'extensions/AutoForm.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
 
   export default {
     data () {
@@ -63,17 +63,32 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .register-page .column {
-    max-width: 450px;
+  .login-page {
+    margin-top: 100px;
+    .column {
+      max-width: 450px;
+    }
+    .field {
+      .error-label {
+        float: left;
+      }
+      &:after {
+        display: table;
+        content: "";
+        width: 0;
+        clear: both;
+      }
+    }
   }
+
   @media only screen and (max-width: 768px) {
-    .register-page {
+    .login-page {
       margin-left: -200px;
     }
   }
 
   @media only screen and (min-width: 768px) {
-    .register-page {
+    .login-page {
       margin-left: -214px;
     }
   }

@@ -202,13 +202,21 @@
     }
   }
 
+  function findParentNodeByClass (node, className) {
+    var parent = node.parentNode
+    while (parent.classList.contains(className) === false) {
+      parent = parent.parentNode ? parent.parentNode : null
+    }
+    return parent
+  }
+
   function serverFormErrors (form, response) {
     var remainingErrors = {}
     if (response.status >= 400) {
       for (var key in response.data) {
         if (response.data.hasOwnProperty(key)) {
           var fieldInput = form.querySelector('[name="' + key + '"]')
-          var fieldDom = fieldInput ? fieldInput.parentNode : null
+          var fieldDom = fieldInput ? findParentNodeByClass(fieldInput, 'field') : null
           if (!fieldDom) {
             remainingErrors[key] = response.data[key]
             continue

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import CurrentUserProvider from '../../../extensions/CurrentUserProvier.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
 
   export default {
     route: {

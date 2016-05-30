@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class AdminController extends BaseController
 {
     /**
-     * TODO 这些导航将来要分散在各个子模块中
+     * TODO 这些导航将来要分散在各个子模块中. 由各个package的index.js来负责加载。不再经过后台
      * @return array
      */
     public function getNavigators()
@@ -35,7 +35,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * TODO 这些路由将来要分散在各个子模块中
+     * TODO 这些路由将来要分散在各个子模块中. 由各个package的index.js来负责加载。不再经过后台
      * @return array
      */
     public function getRoutes()
@@ -49,6 +49,7 @@ class AdminController extends BaseController
     }
 
     /**
+     * 由各个package的index.js来负责加载。不再经过后台
      * TODO 组件搜索方案： <br>
      * 1. 先检查 /packages 是否存在自定义； <br>
      * 2. 如果没有，则回归到 app.php 'providers' 里注册的位置

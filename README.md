@@ -58,6 +58,9 @@ VueJS + webpack + semantic-UI + Laravel
 
 然后编译过的前端代码就出现在 ``` public ``` 目录下。访问你本地的Web服务器即可浏览。
 
+## 路线图
+[RoadMap.md](RoadMap.md)
+
 ### 参考资料
 
 - Laravel: [http://www.laravel.com](http://www.laravel.com)

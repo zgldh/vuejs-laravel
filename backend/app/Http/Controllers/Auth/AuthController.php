@@ -136,7 +136,7 @@ class AuthController extends BaseController
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        return response([$this->loginUsername() => $this->getFailedLoginMessage()], 401);
+        return response(['login' => $this->getFailedLoginMessage()], 401);
     }
 
     /**

@@ -43,6 +43,7 @@
 <script>
   import 'extensions/AutoForm.vue'
   import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import Router from 'components/Admin/router'
 
   export default {
     data () {
@@ -51,6 +52,7 @@
     events: {
       onFormComplete: function (form, response) {
         CurrentUserProvider.setCurrentUser(response.data)
+        Router.go('/dashboard')
       }
     },
     methods: {

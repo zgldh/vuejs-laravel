@@ -221,14 +221,14 @@
             remainingErrors[key] = response.data[key]
             continue
           }
-          appendFormError(fieldDom, response.data[key])
+          appendFieldError(fieldDom, response.data[key])
         }
       }
       appendBundleErrors(form, remainingErrors)
     }
   }
 
-  function appendFormError (fieldDom, errors) {
+  function appendFieldError (fieldDom, errors) {
     fieldDom.classList.add('error')
     if (typeof (errors) === 'string') {
       errors = [errors]
@@ -254,6 +254,10 @@
       for (var key in errors) {
         if (errors.hasOwnProperty(key)) {
           var errorItems = errors[key]
+          console.log(typeof (errorItems))
+          if (typeof (errorItems) === 'string') {
+            errorItems = [errorItems]
+          }
           for (var i = 0; i < errorItems.length; i++) {
             var pNode = document.createElement('p')
             pNode.appendChild(document.createTextNode(errorItems[i]))

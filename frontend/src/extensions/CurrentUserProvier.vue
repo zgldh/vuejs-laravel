@@ -25,7 +25,7 @@
       })
     },
     logout: function () {
-      Vue.http.get('auth/logout').then(function (re) {
+      return Vue.http.get('auth/logout').then(function (re) {
         CurrentUserProvider.setCurrentUser(null)
       }, function (err) {
         vm.$log(err)

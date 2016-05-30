@@ -52,6 +52,11 @@
       }
     },
     watch: {
+      'isLogin': function (val, oldVal) {
+        if (val === true) {
+          $('#SiteNav').accordion('refresh')
+        }
+      },
       'navigators': function (val, oldVal) {
         if (val === true) {
           $('#SiteNav').accordion('refresh')

@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\BaseController;
+use Illuminate\Http\Request;
 
 class AdminController extends BaseController
 {
@@ -40,15 +41,26 @@ class AdminController extends BaseController
     public function getRoutes()
     {
         $routes = [
-            'users.create' => [
-                'route'     => '/users/create',
-                'component' => './Pages/Users/Create.vue'
-            ],
-            'users.list'   => [
-                'route'     => '/users',
-                'component' => './Pages/Users/List.vue'
-            ],
+            '/users/create'       => 'users.create',   // '前端路由' => 'vue组件相对路径'
+            '/users'              => 'users.list',
+            '/users/:userid/edit' => 'users.edit'
         ];
         return $routes;
+    }
+
+    /**
+     * TODO 组件搜索方案： <br>
+     * 1. 先检查 /packages 是否存在自定义； <br>
+     * 2. 如果没有，则回归到 app.php 'providers' 里注册的位置
+     * @param Request $request
+     * @param $component
+     * @return mixed
+     */
+    public function getComponent(Request $request, $component)
+    {
+        $result = [
+            'template' => '<p>From backend: ' . $component . '</p>'
+        ];
+        return json_encode($result);
     }
 }

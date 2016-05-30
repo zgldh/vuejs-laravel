@@ -41,5 +41,6 @@
         ], function () {
             Route::get('routes', 'Admin\AdminController@getRoutes');
             Route::get('navigators', 'Admin\AdminController@getNavigators');
+            Route::get('component/{component}', 'Admin\AdminController@getComponent');
         });
     });

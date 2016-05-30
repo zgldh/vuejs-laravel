@@ -25,6 +25,13 @@
         loading: true
       }
     },
+    events: {
+      onCurrentUserChanged: function (user) {
+        if (!user) {
+          Router.go('/login')
+        }
+      }
+    },
     components: {
       SiteNav
     },

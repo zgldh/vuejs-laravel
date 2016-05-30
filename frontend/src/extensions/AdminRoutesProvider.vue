@@ -1,5 +1,6 @@
 <script>
   import Vue from 'vue'
+  import Router from 'components/Admin/router'
 
   var routesConfig = null
   var vm = null
@@ -9,6 +10,7 @@
     },
     setRoutesConfig: function (routes) {
       routesConfig = routes
+      Router.map(routesConfig)
       vm.$dispatch('onRoutesChanged', routesConfig)
       vm.$broadcast('onRoutesChanged', routesConfig)
     },
@@ -17,8 +19,8 @@
     },
     loadFromServer: function () {
       return Vue.http.get('admin/routes').then(function (re) {
-        re.data = re.data ? re.data : null
-        AdminRoutesProvider.setRoutesConfig(re.data)
+        re.data = re.data ? re.data : []
+        AdminRoutesProvider.setRoutesConfig(transformToRouterConfig(re.data))
         return this
       }, function (err) {
         vm.$log(err)
@@ -32,5 +34,25 @@
       })
     }
   }
+
+  function transformToRouterConfig (raw) {
+    var routerConfig = {}
+    for (var key in raw) {
+      routerConfig[key] = {
+        component: (function (componentName) {
+          return function (resolve) {
+            Vue.http.get('admin/component/' + encodeURIComponent(componentName)).then(function (re) {
+              re.data = re.data ? re.data : {template: "Can't find component: " + componentName}
+              resolve(re.data)
+            }, function (err) {
+              vm.$log(err)
+            })
+          }
+        })(raw[key])
+      }
+    }
+    return routerConfig
+  }
+
   export default AdminRoutesProvider
 </script>

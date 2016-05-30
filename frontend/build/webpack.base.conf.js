@@ -2,7 +2,8 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var webpack = require('webpack')
-var projectRoot = path.resolve(__dirname, '../')
+var projectRoot = path.resolve(__dirname, '..')
+var backendRoot = path.resolve(__dirname, '../../backend')
 
 module.exports = {
   entry: {
@@ -16,7 +17,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.vue', '.css', '.sass', '.scss'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    fallback: [
+      path.join(__dirname, '../node_modules'),
+      path.resolve(__dirname, '../src'),
+      backendRoot
+    ],
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
@@ -38,13 +43,19 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'eslint',
-        include: projectRoot,
+        include: [
+          projectRoot,
+          backendRoot
+        ],
         exclude: /node_modules/
       },
       {
         test: /\.js$/,
         loader: 'eslint',
-        include: projectRoot,
+        include: [
+          projectRoot,
+          backendRoot
+        ],
         exclude: /node_modules|semantic/
       }
     ],
@@ -56,8 +67,11 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-        include: projectRoot,
-        exclude: /node_modules/
+        include: [
+          projectRoot,
+          backendRoot
+        ],
+        exclude: /(node_modules|bower_components)/
       },
       {
         test: /\.json$/,

@@ -13,11 +13,11 @@
 
 <script>
   import '../../semantic/dist/semantic.js'
-  import SiteNav from 'components/Admin/Common/SiteNav.vue'
+  import SiteNav from 'components/Admin/Common/SiteNav'
   import Router from 'components/Admin/router'
-  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
-  import AdminNavigatorsProvider from 'extensions/AdminNavigatorsProvider.vue'
-  import AdminRoutesProvider from 'extensions/AdminRoutesProvider.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvier'
+  import AdminNavigatorsProvider from 'extensions/AdminNavigatorsProvider'
+  import AdminRoutesProvider from 'extensions/AdminRoutesProvider'
 
   export default {
     data: function () {

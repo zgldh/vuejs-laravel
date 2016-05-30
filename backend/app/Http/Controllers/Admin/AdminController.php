@@ -59,7 +59,7 @@ class AdminController extends BaseController
     public function getComponent(Request $request, $component)
     {
         $result = [
-            'template' => '<p>From backend: ' . $component . '</p>'
+            'template' => '<p onclick="alert(\'hi\')">From backend: ' . $component . '</p>'
         ];
         return json_encode($result);
     }

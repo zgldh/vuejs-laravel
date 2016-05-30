@@ -1,18 +1,27 @@
 <template>
 
-  <site-nav></site-nav>
+  <!--<site-nav></site-nav>-->
 
-  <div class="pusher" style="padding-top:70px;">
-    <router-view></router-view>
-  </div>
+  <!--<div class="pusher" style="padding-top:70px;">-->
+    <!--<router-view></router-view>-->
+  <!--</div>-->
+
+  {{ PackageText }}
 </template>
 
 <script>
   import '../../semantic/dist/semantic.js'
   import SiteNav from 'components/Index/Common/SiteNav.vue'
   import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import PackageText from 'packages/users/index.js'
 
   export default {
+    data: function () {
+      console.log(PackageText)
+      return {
+        PackageText: PackageText
+      }
+    },
     components: {
       SiteNav
     },

@@ -3,7 +3,7 @@ var config = require('../config')
 var utils = require('./utils')
 var webpack = require('webpack')
 var projectRoot = path.resolve(__dirname, '..')
-var backendRoot = path.resolve(__dirname, '../../backend')
+var backendRoot = path.resolve(__dirname, '../../backend/vendor')
 
 module.exports = {
   entry: {
@@ -19,7 +19,7 @@ module.exports = {
     extensions: ['', '.js', '.vue', '.css', '.sass', '.scss'],
     fallback: [
       path.join(__dirname, '../node_modules'),
-      path.resolve(__dirname, '../src'),
+      path.resolve(__dirname, '../src/packages'),
       backendRoot
     ],
     alias: {

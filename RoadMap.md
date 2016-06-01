@@ -1,6 +1,6 @@
 # vuejs-laravel 路线图
 
-0. 模块基础
+0. 模块基础  
   0.1. 设计加载方式  **[In Progress]**  
   0.2. 设计自定义方式  **[In Progress]**  
 

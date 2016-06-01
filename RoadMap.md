@@ -1,5 +1,9 @@
 # vuejs-laravel 路线图
 
+0. 模块基础
+  0.1. 设计加载方式  **[In Progress]**  
+  0.2. 设计自定义方式  **[In Progress]**  
+
 1. 基础用户模块  
   1.1. 用户列表  **[In Progress]**  
   1.2. 角色列表  

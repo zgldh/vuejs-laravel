@@ -26,7 +26,8 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
-      'extensions': path.resolve(__dirname, '../src/extensions')
+      'extensions': path.resolve(__dirname, '../src/extensions'),
+      'backend': backendRoot
     }
   },
   resolveLoader: {

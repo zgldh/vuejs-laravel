@@ -16,8 +16,8 @@
   import SiteNav from 'components/Admin/Common/SiteNav'
   import Router from 'components/Admin/router'
   import CurrentUserProvider from 'extensions/CurrentUserProvier'
-  import AdminNavigatorsProvider from 'extensions/AdminNavigatorsProvider'
-  import AdminRoutesProvider from 'extensions/AdminRoutesProvider'
+  import PackageInstaller from 'extensions/PackageInstaller'
+  import packages from 'src/packages/index.js'
 
   export default {
     data: function () {
@@ -36,13 +36,12 @@
       SiteNav
     },
     ready: function () {
+      PackageInstaller.installApp(this)
+      PackageInstaller.installPackages(packages)
+
       CurrentUserProvider.installApp(this)
-      AdminNavigatorsProvider.installApp(this)
-      AdminRoutesProvider.installApp(this)
       Promise.all([
-        CurrentUserProvider.loadFromServer(),
-        AdminNavigatorsProvider.loadFromServer(),
-        AdminRoutesProvider.loadFromServer()
+        CurrentUserProvider.loadFromServer()
       ]).then(
         function (result) {
           this.loading = false

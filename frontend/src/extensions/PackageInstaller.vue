@@ -26,6 +26,9 @@
       if (adminConfig.navigators) {
         AdminNavigatorsProvider.setNavigators(adminConfig.navigators)
       }
+      if (adminConfig.routes) {
+        AdminRoutesProvider.setRoutesConfig(adminConfig.routes)
+      }
     }
   }
 

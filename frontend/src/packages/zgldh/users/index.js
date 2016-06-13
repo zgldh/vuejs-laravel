@@ -8,7 +8,7 @@ import UserList from 'zgldh/users/src/Pages/UserList'
 var config = {
   admin: {
     routes: {
-      // TODO 路由应当直接指向一个 VueJS component
+      // 路由应当直接指向一个 VueJS component
       '/users/create': {
         component: UserEditor
       },
@@ -20,6 +20,7 @@ var config = {
       }
     },
     navigators: {
+      // 显示在左侧菜单的导航.
       'users': {
         'children': {
           'users.create': {

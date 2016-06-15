@@ -9,6 +9,14 @@ Vue.use(VueAsyncData)
 Vue.config.debug = true
 /* eslint-disable no-new */
 var application = Vue.extend({
-  components: {App}
+  components: {App},
+  data () {
+    return {pageTitle: null}
+  },
+  events: {
+    onPageTitleChanged: function (title) {
+      this.pageTitle = title
+    }
+  }
 })
-Router.start(application, 'body')
+Router.start(application, 'html')

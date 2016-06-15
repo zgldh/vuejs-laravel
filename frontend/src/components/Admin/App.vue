@@ -22,6 +22,7 @@
   export default {
     data: function () {
       return {
+        pageTitle: '233',
         loading: true
       }
     },

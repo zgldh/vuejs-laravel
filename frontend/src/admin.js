@@ -7,6 +7,7 @@ import './components/resources.js'
 
 Vue.use(VueAsyncData)
 Vue.config.debug = true
+Vue.config.unsafeDelimiters = ['{!!', '!!}']
 /* eslint-disable no-new */
 var application = Vue.extend({
   components: {App},

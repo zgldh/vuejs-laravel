@@ -56,7 +56,7 @@
 
 <script>
   import $ from 'jquery'
-  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvider'
 
   export default {
     attached: function () {

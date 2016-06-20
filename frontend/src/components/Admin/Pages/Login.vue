@@ -42,12 +42,15 @@
 
 <script>
   import 'extensions/AutoForm.vue'
-  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import Router from 'components/Admin/router'
+  import WebPage from 'extensions/WebPage'
 
-  export default {
+  export default WebPage.extend({
     data () {
-      return {}
+      return {
+        pageTitle: '登录'
+      }
     },
     events: {
       onFormComplete: function (form, response) {
@@ -61,7 +64,7 @@
       }
     },
     components: {}
-  }
+  })
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

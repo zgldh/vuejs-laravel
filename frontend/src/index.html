@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Vue+Laravel Main</title>
+  <title v-if="!pageTitle">Vue+Laravel Main</title>
+  <title v-else>Vue+Laravel Main - {{ pageTitle }}</title>
 </head>
 <body>
 <app></app>

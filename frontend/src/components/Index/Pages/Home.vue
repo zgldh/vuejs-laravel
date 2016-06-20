@@ -8,14 +8,16 @@
 </template>
 
 <script>
-  export default {
+  import WebPage from 'extensions/WebPage'
+
+  export default WebPage.extend({
     data () {
       return {
-        msg: 'Home'
+        pageTitle: '首页'
       }
     },
     components: {}
-  }
+  })
 </script>
 
 <style scoped>

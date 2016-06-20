@@ -15,7 +15,7 @@
   import '../../semantic/dist/semantic.js'
   import SiteNav from 'components/Admin/Common/SiteNav'
   import Router from 'components/Admin/router'
-  import CurrentUserProvider from 'extensions/CurrentUserProvier'
+  import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import PackageInstaller from 'extensions/PackageInstaller'
   import packages from 'src/packages/index.js'
 

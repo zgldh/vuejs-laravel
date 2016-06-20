@@ -37,7 +37,7 @@
 
 <script>
   import $ from 'jquery'
-  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import AdminNavigatorsProvider from 'extensions/AdminNavigatorsProvider.vue'
 
   export default {

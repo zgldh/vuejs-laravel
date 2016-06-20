@@ -9,12 +9,15 @@
 
 <script>
   import 'extensions/AutoForm.vue'
-  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import Router from 'components/Admin/router'
+  import WebPage from 'extensions/WebPage'
 
-  export default {
+  export default WebPage.extend({
     data () {
-      return {}
+      return {
+        pageTitle: '用户列表'
+      }
     },
     events: {
       onFormComplete: function (form, response) {
@@ -24,7 +27,7 @@
     },
     methods: {},
     components: {}
-  }
+  })
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

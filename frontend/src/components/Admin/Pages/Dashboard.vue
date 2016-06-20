@@ -2,15 +2,15 @@
 
   <div class="ui container">
     <h1>Admin Dashboard</h1>
-    <p></p>
   </div>
 
 </template>
 
 <script>
-  import CurrentUserProvider from 'extensions/CurrentUserProvier.vue'
+  import CurrentUserProvider from 'extensions/CurrentUserProvider'
+  import WebPage from 'extensions/WebPage'
 
-  export default {
+  var dashboard = WebPage.extend({
     route: {
       canActivate: function (transition) {
         var user = CurrentUserProvider.getCurrentUser()
@@ -23,11 +23,13 @@
     },
     data () {
       return {
-        msg: 'Dashboard'
+        pageTitle: '总览'
       }
     },
     components: {}
-  }
+  })
+
+  export default dashboard
 </script>
 
 <style scoped>

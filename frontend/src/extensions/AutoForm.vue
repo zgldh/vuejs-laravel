@@ -1,7 +1,8 @@
 <script>
   import Vue from 'vue'
-  import resource from '../components/resources'
+  import resource from 'components/resources'
   import NProgress from 'nprogress'
+  import InfoDialog from 'extensions/InfoDialog'
   /**
    // Template
    // <form class="ui form" action="current_user" method="post" v-auto-form>
@@ -84,7 +85,7 @@
             if (xhr.status < 400) {
               vm.$dispatch('onFormComplete', form, response)
             } else {
-              serverFormErrors(form, response)
+              serverFormErrors(form, response, xhr)
               vm.$dispatch('onFormError', form, response)
             }
           }
@@ -210,9 +211,13 @@
     return parent
   }
 
-  function serverFormErrors (form, response) {
+  function serverFormErrors (form, response, xhr) {
     var remainingErrors = {}
-    if (response.status >= 400) {
+
+    if (response.data === null) {
+      InfoDialog.error('服务器通信故障，请联系管理员： ' + xhr.statusText, response.status)
+    }
+    else if (response.status >= 400) {
       for (var key in response.data) {
         if (response.data.hasOwnProperty(key)) {
           var fieldInput = form.querySelector('[name="' + key + '"]')

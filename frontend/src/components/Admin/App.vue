@@ -22,7 +22,7 @@
   export default {
     data: function () {
       return {
-        pageTitle: '233',
+        pageTitle: '',
         loading: true
       }
     },
@@ -47,11 +47,15 @@
         function (result) {
           this.loading = false
           var user = CurrentUserProvider.getCurrentUser()
+          this.$log(Router.path)
           if (!user) {
             Router.go('/login')
           }
-          else if (!Router.path) {
+          else if (!this.$route.path) {
             Router.go('/dashboard')
+          }
+          else {
+            Router.go(this.$route.path)
           }
         }.bind(this)
       ).catch(console.log.bind(console))

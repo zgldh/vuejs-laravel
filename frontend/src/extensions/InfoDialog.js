@@ -1,16 +1,15 @@
 import $ from 'jquery'
 
-var template = '<div class="ui basic modal" id="error-dialog">' +
+var template = '<div class="ui small basic modal" id="error-dialog">' +
   '<i class="close icon"></i>' +
   '<div class="header"></div>' +
   '<div class="content">' +
   '<div class="description"><p></p></div>' +
   '</div>' +
   '<div class="actions">' +
-  '<div class="two fluid ui inverted buttons">' +
-  '<div class="ui green basic inverted cancel button">' +
-  '<i class="checkmark icon"></i>Close</div>' +
-  '</div></div></div>' +
+  '<div class="ui green inverted cancel button">' +
+  '<i class="checkmark icon"></i>关闭</div>' +
+  '</div></div>' +
   '<div class="ui small modal" id="info-dialog">' +
   '<i class="close icon"></i>' +
   '<div class="header"></div>' +
@@ -18,10 +17,9 @@ var template = '<div class="ui basic modal" id="error-dialog">' +
   '<div class="description"><p></p></div>' +
   '</div>' +
   '<div class="actions">' +
-  '<div class="two fluid ui inverted buttons">' +
-  '<div class="ui green basic inverted cancel button">' +
-  '<i class="checkmark icon"></i>Close</div>' +
-  '</div></div></div>'
+  '<div class="ui green inverted cancel button">' +
+  '<i class="checkmark icon"></i>关闭</div>' +
+  '</div></div>'
 var InfoDialog = {
   init: function () {
     $('body').append(template)

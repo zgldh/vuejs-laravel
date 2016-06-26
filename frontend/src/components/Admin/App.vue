@@ -47,15 +47,16 @@
         function (result) {
           this.loading = false
           var user = CurrentUserProvider.getCurrentUser()
-          this.$log(Router.path)
+          console.log(this.$route.path)
+          var path = this.$route.path
           if (!user) {
             Router.go('/login')
           }
-          else if (!this.$route.path) {
+          else if (!path) {
             Router.go('/dashboard')
           }
           else {
-            Router.go(this.$route.path)
+            Router.replace({path: path, query: {_: new Date().getTime()}, replace: true})
           }
         }.bind(this)
       ).catch(console.log.bind(console))

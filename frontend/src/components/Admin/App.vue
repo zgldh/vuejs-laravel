@@ -6,7 +6,7 @@
     <site-nav></site-nav>
 
     <div class="pusher">
-      <router-view></router-view>
+      <router-view transition="page"></router-view>
     </div>
   </div>
 </template>
@@ -56,7 +56,8 @@
             Router.go('/dashboard')
           }
           else {
-            Router.replace({path: path, query: {_: new Date().getTime()}, replace: true})
+            path = path.substr(0, path.lastIndexOf('/'))
+            Router.go(path)
           }
         }.bind(this)
       ).catch(console.log.bind(console))
@@ -77,6 +78,39 @@
   @media only screen and (min-width: 768px) {
     .side-menu + .pusher {
       padding-left: 214px;
+    }
+  }
+
+  .page-transition {
+    display: inline-block; /* 否则 scale 动画不起作用 */
+    position: absolute;
+  }
+
+  .page-enter {
+    animation: page-in .5s;
+  }
+
+  .page-leave {
+    animation: page-out .5s;
+  }
+
+  @keyframes page-in {
+    0% {
+      top: -100%;
+      opacity: 0;
+    }
+    100% {
+      top: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes page-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
     }
   }
 </style>

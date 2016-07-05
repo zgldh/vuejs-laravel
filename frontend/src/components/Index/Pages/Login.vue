@@ -50,7 +50,7 @@
       }
     },
     components: {}
-  })
+  }, true)
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

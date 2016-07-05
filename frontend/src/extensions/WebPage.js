@@ -2,15 +2,17 @@ import Vue from 'vue'
 import CurrentUserProvicer from 'extensions/CurrentUserProvider'
 
 var WebPage = {
-  extend: function (settings) {
+  extend: function (settings, canActive) {
     var mixin = {
       route: {
-        canActivate: function (transition) {
+        canActivate: !canActive ? function (transition) {
           var user = CurrentUserProvicer.getCurrentUser()
           if (!user) {
             transition.redirect('/login')
             return false
           }
+          return true
+        } : function (transition) {
           return true
         }
       },

@@ -1,5 +1,4 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-
   <div class="ui container login-page">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
@@ -36,8 +35,6 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script>
@@ -64,7 +61,7 @@
       }
     },
     components: {}
-  })
+  }, true)
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

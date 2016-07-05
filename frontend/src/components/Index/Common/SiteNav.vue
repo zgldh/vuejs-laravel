@@ -77,6 +77,7 @@
         this.isLogin = user !== null
         if (this.isLogin) {
           this.user = user
+          this.userName = this.user.name
         }
         else {
           this.user = {name: null}

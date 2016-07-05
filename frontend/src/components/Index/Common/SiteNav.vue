@@ -8,7 +8,7 @@
     <a class="item">工作</a>
     <a class="item">公司</a>
     <a class="item">招聘</a>
-    <a class="item" v-show="isLogin">{{user.name}}</a>
+    <a class="item" v-show="isLogin">{{userName}}</a>
     <a class="item" v-show="isLogin" @click="logout(event)">退出</a>
     <a class="item"
        v-show="isLogin===false"
@@ -34,7 +34,7 @@
         <a class="item">招聘</a>
         <div class="right menu">
           <a class="ui dropdown item" id="SiteNavUserMenu" v-show="isLogin">
-            {{user.name}}
+            {{userName}}
             <i class="dropdown icon"></i>
             <div class="menu">
               <div class="item" @click="logout(event)">退出</div>
@@ -65,9 +65,11 @@
     },
     data: function () {
       var user = CurrentUserProvider.getCurrentUser()
+      var userName = user ? user.name : ''
       return {
         isLogin: user !== null,
-        user: user
+        user: user,
+        userName: userName
       }
     },
     events: {

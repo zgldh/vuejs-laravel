@@ -64,8 +64,9 @@
   }, true)
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
   .login-page {
+    width: 100%;
     margin-top: 100px;
     .column {
       max-width: 450px;

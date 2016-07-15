@@ -1,0 +1,22 @@
+{
+  "name": "zgldh/vuejs-laravel-user",
+  "description": "User package for zgldh/vuejs-laravel",
+  "keywords": [
+    "vuejs",
+    "laravel"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "zgldh/vuejs-laravel": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "zgldh\\VuejsLaravelUser\\": "src/"
+    }
+  },
+  "autoload-dev": {
+  },
+  "config": {
+  }
+}

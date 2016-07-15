@@ -30,6 +30,7 @@
       </div>
     </div>
   </div>
+  <p>Frontend</p>
 </template>
 
 <script>

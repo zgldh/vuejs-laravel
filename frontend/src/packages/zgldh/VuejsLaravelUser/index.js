@@ -1,9 +1,10 @@
 /**
  * Created by zgldh on 2016/5/30.
+ * 这是 zgldh/vuejs-laravel-user 组件的配置文件。
+ * 包含路由、菜单配置等。 有待后续扩展
  */
-// import config from 'backend/zgldh/users/index.js'
-import UserEditor from 'zgldh/users/src/Pages/UserEditor'
-import UserList from 'zgldh/users/src/Pages/UserList'
+import UserEditor from 'zgldh/VuejsLaravelUser/vue/Pages/UserEditor'
+import UserList from 'zgldh/VuejsLaravelUser/vue/Pages/UserList'
 
 var config = {
   admin: {

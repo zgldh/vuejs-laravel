@@ -48,6 +48,8 @@
         action = Vue.http.options.root + '/' + action
       }
 
+      console.log(action)
+
       // Prepare error boxes
       prepareErrorBoxes(form)
 
@@ -65,11 +67,6 @@
         // fires whenever an error occurs
         var handleError = function (err) {
           vm.$dispatch('onFormError', form, err)
-        }
-
-        // set a default form method
-        if (!vm.method) {
-          vm.method = 'post'
         }
 
         // fires when the form returns a result
@@ -104,12 +101,15 @@
         var data = new window.FormData(event.target)
 
         //  Method fix
-        var method = form.method.toLowerCase()
+        var method = form.attributes.getNamedItem('method').value.toLowerCase()
         if (selfServer) {
           if (method !== 'post' && method !== 'get') {
             data.append('_method', method)
             method = 'POST'
           }
+        }
+        else if (method === '') {
+          method = 'get'
         }
 
         xhr.open(method, action, true)
@@ -306,29 +306,34 @@
 
 <style lang="scss" rel="stylesheet/scss">
   .auto-form {
-    .error-box {
-      display: block !important;
-    }
-    .ui.label.error-label, .error-box {
-      -webkit-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-      -moz-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-      -ms-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-      -o-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-      transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-      line-height: 1.5em;
 
-      opacity: 0;
-      height: 0;
-      padding: 0;
-      margin-top: 0;
-      overflow: hidden;
-      &.full-display {
-        opacity: 1;
-        height: auto;
-        margin-top: 12px;
-        padding: 0.5833em 0.833em;
-        overflow: visible;
-      }
-    }
+  .error-box {
+    display: block !important;
+  }
+
+  .ui.label.error-label, .error-box {
+    -webkit-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+    -moz-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+    -ms-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+    -o-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+    transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+    line-height: 1.5em;
+
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin-top: 0;
+    overflow: hidden;
+
+  &
+  .full-display {
+    opacity: 1;
+    height: auto;
+    margin-top: 12px;
+    padding: 0.5833em 0.833em;
+    overflow: visible;
+  }
+
+  }
   }
 </style>

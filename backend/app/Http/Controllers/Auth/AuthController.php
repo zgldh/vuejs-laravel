@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use App\User;
 use Auth;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use zgldh\VuejsLaravelUser\User;
 
 class AuthController extends BaseController
 {

@@ -1,5 +1,5 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-  <div class="ui container login-page">
+  <div class="ui container login-page" transition="page">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui teal image header">

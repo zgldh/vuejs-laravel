@@ -6,7 +6,7 @@
     <site-nav></site-nav>
 
     <div class="pusher">
-      <router-view transition="page"></router-view>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -29,6 +29,7 @@
     events: {
       onCurrentUserChanged: function (user) {
         if (!user) {
+          console.log('App.vue onCurrentUserChanged', user)
           Router.go('/login')
         }
       }
@@ -44,30 +45,31 @@
       Promise.all([
         CurrentUserProvider.loadFromServer()
       ]).then(
-        function (result) {
-          this.loading = false
-          var user = CurrentUserProvider.getCurrentUser()
-          console.log(this.$route.path)
-          var path = this.$route.path
-          if (!user) {
-            Router.go('/login')
-          }
-          else if (!path) {
-            Router.go('/dashboard')
-          }
-          else {
-            path = path.substr(0, path.lastIndexOf('/'))
-            Router.go(path)
-          }
-        }.bind(this)
+              function (result) {
+                this.loading = false
+                var user = CurrentUserProvider.getCurrentUser()
+                console.log('App.vue ready: ', this.$route.path, result)
+                var path = this.$route.path
+                if (!user) {
+                  Router.go('/login')
+                }
+                else if (!path) {
+                  Router.go('/dashboard')
+                }
+                else {
+//                  path = path.substr(0, path.lastIndexOf('/'))
+                  Router.go(path)
+                }
+              }.bind(this)
       ).catch(console.log.bind(console))
     }
   }
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss">
   @import "../../semantic/dist/semantic.css";
   @import "../../../node_modules/nprogress/nprogress.css";
+  @import "../../assets/page-transition.scss";
 
   @media only screen and (max-width: 768px) {
     .side-menu + .pusher {
@@ -78,39 +80,6 @@
   @media only screen and (min-width: 768px) {
     .side-menu + .pusher {
       padding-left: 214px;
-    }
-  }
-
-  .page-transition {
-    display: inline-block; /* 否则 scale 动画不起作用 */
-    position: absolute;
-  }
-
-  .page-enter {
-    animation: page-in .5s;
-  }
-
-  .page-leave {
-    animation: page-out .5s;
-  }
-
-  @keyframes page-in {
-    0% {
-      top: -100%;
-      opacity: 0;
-    }
-    100% {
-      top: 0;
-      opacity: 1;
-    }
-  }
-
-  @keyframes page-out {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
     }
   }
 </style>

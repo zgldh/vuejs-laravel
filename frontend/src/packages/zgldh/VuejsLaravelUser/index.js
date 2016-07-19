@@ -31,10 +31,6 @@ var config = {
           'users.list': {
             'route': '/users',
             'text': '用户列表'
-          },
-          'users.edit': {
-            'route': '/users/66/edit',
-            'text': '编辑66'
           }
         },
         'text': '用户'

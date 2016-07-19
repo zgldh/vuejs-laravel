@@ -1,6 +1,6 @@
 <template>
 
-  <div class="ui container">
+  <div class="ui container" transition="page">
     <h1>Admin Dashboard</h1>
   </div>
 
@@ -13,12 +13,9 @@
   var dashboard = WebPage.extend({
     route: {
       canActivate: function (transition) {
-        var user = CurrentUserProvider.getCurrentUser()
-        if (!user) {
+        return CurrentUserProvider.isLogin().catch(function () {
           transition.redirect('/login')
-          return false
-        }
-        return true
+        })
       }
     },
     data () {

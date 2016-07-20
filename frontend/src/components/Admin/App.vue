@@ -70,6 +70,7 @@
   @import "../../semantic/dist/semantic.css";
   @import "../../../node_modules/nprogress/nprogress.css";
   @import "../../assets/page-transition.scss";
+  @import "../../assets/custom.scss";
 
   @media only screen and (max-width: 768px) {
     .side-menu + .pusher {

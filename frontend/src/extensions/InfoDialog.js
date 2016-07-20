@@ -10,6 +10,7 @@ var template = '<div class="ui small basic modal" id="error-dialog">' +
   '<div class="ui green inverted cancel button">' +
   '<i class="checkmark icon"></i>关闭</div>' +
   '</div></div>' +
+
   '<div class="ui small modal" id="info-dialog">' +
   '<i class="close icon"></i>' +
   '<div class="header"></div>' +
@@ -19,7 +20,21 @@ var template = '<div class="ui small basic modal" id="error-dialog">' +
   '<div class="actions">' +
   '<div class="ui green inverted cancel button">' +
   '<i class="checkmark icon"></i>关闭</div>' +
+  '</div></div>' +
+
+  '<div class="ui small basic modal" id="confirm-dialog">' +
+  '<i class="close icon"></i>' +
+  '<div class="header"></div>' +
+  '<div class="content">' +
+  '<div class="description"><p></p></div>' +
+  '</div>' +
+  '<div class="actions">' +
+  '<div class="ui cancel red inverted button">' +
+  '<i class="remove icon"></i>取消</div>' +
+  '<div class="ui ok green inverted button">' +
+  '<i class="checkmark icon"></i>确定</div>' +
   '</div></div>'
+
 var InfoDialog = {
   init: function () {
     $('body').append(template)
@@ -30,6 +45,14 @@ var InfoDialog = {
     })
     $('#info-dialog').modal({
       onDeny: function () {
+        return true
+      }
+    })
+    $('#confirm-dialog').modal({
+      onDeny: function () {
+        return true
+      },
+      onApprove: function () {
         return true
       }
     })
@@ -46,6 +69,28 @@ var InfoDialog = {
   },
   info: function (content, title) {
 
+  },
+  confirm: function (content, title, data) {
+    var dialog = $('#confirm-dialog')
+    if (dialog.size() === 0) {
+      InfoDialog.init()
+      dialog = $('#confirm-dialog')
+    }
+    dialog.find('.header').text(title)
+    dialog.find('.content .description p').text(content)
+    dialog.modal('show')
+    return new Promise(
+      function (resolve, reject) {
+        $('#confirm-dialog').modal({
+          onDeny: function () {
+            return reject(data)
+          },
+          onApprove: function () {
+            return resolve(data)
+          }
+        })
+      }
+    )
   }
 }
 

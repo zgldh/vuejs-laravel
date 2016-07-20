@@ -20,6 +20,7 @@
           <td>{{ user.email }}</td>
           <td>
             <button class="ui button primary" type="button" v-on:click="editUser(user)">编辑</button>
+            <button class="ui button red" type="button" v-on:click="deleteUser(user)">删除</button>
           </td>
         </tr>
         </tbody>
@@ -52,6 +53,7 @@
   import Router from 'components/Admin/router'
   import WebPage from 'extensions/WebPage'
   import CurrentUserProvider from 'extensions/CurrentUserProvider'
+  import InfoDialog from 'extensions/InfoDialog'
 
   export default WebPage.extend({
     route: {
@@ -82,6 +84,20 @@
     methods: {
       editUser: function (user) {
         Router.go('/users/' + user.id + '/edit')
+      },
+      deleteUser: function (user) {
+        var vm = this
+        InfoDialog.confirm('confirm title', 'confirm content', user)
+                .then(function (user) {
+                  console.log('confirm resolve', user)
+                  return Vue.http.delete('user/' + user.id)
+                          .then(function (re) {
+                            vm.users.$remove(user)
+                          }, function (err) {
+                            console.log(err)
+                          })
+                })
+//        Router.go('/users/' + user.id + '/edit')
       }
     },
     components: {}

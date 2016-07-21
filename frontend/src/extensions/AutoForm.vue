@@ -304,36 +304,35 @@
 
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss">
   .auto-form {
 
-  .error-box {
-    display: block !important;
-  }
+    .error-box {
+      display: block !important;
+    }
 
-  .ui.label.error-label, .error-box {
-    -webkit-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-    -moz-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-    -ms-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-    -o-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-    transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
-    line-height: 1.5em;
+    .ui.label.error-label, .error-box {
+      -webkit-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      -moz-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      -ms-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      -o-transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      transition: padding-top .3s, padding-bottom .3s, opacity .3s, height .3s;
+      line-height: 1.5em;
 
-    opacity: 0;
-    height: 0;
-    padding: 0;
-    margin-top: 0;
-    overflow: hidden;
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      margin-top: 0;
+      overflow: hidden;
 
-  &
-  .full-display {
-    opacity: 1;
-    height: auto;
-    margin-top: 12px;
-    padding: 0.5833em 0.833em;
-    overflow: visible;
-  }
+      &.full-display {
+        opacity: 1;
+        height: auto;
+        margin-top: 12px;
+        padding: 0.5833em 0.833em;
+        overflow: visible;
+      }
 
-  }
+    }
   }
 </style>

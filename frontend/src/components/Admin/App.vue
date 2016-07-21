@@ -66,7 +66,7 @@
   }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss">
   @import "../../semantic/dist/semantic.css";
   @import "../../../node_modules/nprogress/nprogress.css";
   @import "../../assets/page-transition.scss";

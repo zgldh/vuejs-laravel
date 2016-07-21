@@ -93,7 +93,7 @@
   }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss">
   .pusher.site-nav-pusher {
     min-height: inherit;
     overflow: visible;

@@ -88,7 +88,7 @@
   }
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" scoped>
   .self-configuration {
     img {
       max-height: 64px;

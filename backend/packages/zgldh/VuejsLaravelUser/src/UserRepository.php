@@ -1,4 +1,5 @@
-<?php
+<?php namespace zgldh\VuejsLaravelUser;
+
 /**
  * Created by PhpStorm.
  * User: zhangwb-pc
@@ -6,15 +7,13 @@
  * Time: 16:37
  */
 
-namespace zgldh\VuejsLaravelUser;
-
 
 class UserRepository implements UserRepositoryInterface
 {
 
     public function getList()
     {
-        $users = User::orderBy('created_at','desc')->get();
+        $users = User::orderBy('created_at', 'desc')->get();
         return $users;
     }
 
@@ -37,6 +36,10 @@ class UserRepository implements UserRepositoryInterface
     public function update($userData)
     {
         $user = User::find($userData['id']);
+
+        if (\Gate::denies('update-user', $user)) {
+            abort(403);
+        }
         $user->name = $userData['name'];
         $user->email = $userData['email'];
         $user->save();

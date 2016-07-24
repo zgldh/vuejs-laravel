@@ -1,5 +1,6 @@
 <?php namespace zgldh\VuejsLaravelUser;
 
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -23,8 +24,8 @@ class UserServiceProvider extends ServiceProvider
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
     }
 
-    public function boot()
+    public function boot(Gate $gate)
     {
-
+        $gate->define('list-users', UserAbilities::class . '@updateUser');
     }
 }

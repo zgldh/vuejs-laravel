@@ -4,21 +4,21 @@
     <div class="content">
       <h1>用户列表</h1>
 
-      <table class="ui celled table">
+      <table class="ui selectable celled table">
         <thead>
         <tr>
-          <th>ID</th>
+          <th class="collapsing">ID</th>
           <th>用户名</th>
           <th>邮箱</th>
-          <th>操作</th>
+          <th class="right aligned collapsing">操作</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="user in users">
-          <td>{{ user.id }}</td>
+          <td class="collapsing">{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>
+          <td class="right aligned collapsing">
             <button class="ui button primary" type="button" v-on:click="editUser(user)">编辑</button>
             <button class="ui button red" type="button" v-on:click="deleteUser(user)">删除</button>
           </td>
@@ -27,18 +27,7 @@
         <tfoot>
         <tr>
           <th colspan="4">
-            <div class="ui right floated pagination menu">
-              <a class="icon item">
-                <i class="left chevron icon"></i>
-              </a>
-              <a class="item">1</a>
-              <a class="item">2</a>
-              <a class="item">3</a>
-              <a class="item">4</a>
-              <a class="icon item">
-                <i class="right chevron icon"></i>
-              </a>
-            </div>
+            <pagination></pagination>
           </th>
         </tr>
         </tfoot>
@@ -54,6 +43,7 @@
   import WebPage from 'extensions/WebPage'
   import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import InfoDialog from 'extensions/InfoDialog'
+  import Pagination from 'extensions/Pagination'
 
   export default WebPage.extend({
     route: {
@@ -87,7 +77,7 @@
       },
       deleteUser: function (user) {
         var vm = this
-        InfoDialog.confirm('confirm title', 'confirm content', user)
+        InfoDialog.confirmDeleting('真的要删除用户 ' + user.name + ' ？', user)
                 .then(function (user) {
                   console.log('confirm resolve', user)
                   return Vue.http.delete('user/' + user.id)
@@ -97,10 +87,11 @@
                             console.log(err)
                           })
                 })
-//        Router.go('/users/' + user.id + '/edit')
       }
     },
-    components: {}
+    components: {
+      Pagination
+    }
   })
 </script>
 

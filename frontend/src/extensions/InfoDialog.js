@@ -91,6 +91,9 @@ var InfoDialog = {
         })
       }
     )
+  },
+  confirmDeleting: function (content, data) {
+    return this.confirm(content, '删除确认', data)
   }
 }
 

@@ -214,7 +214,10 @@
   function serverFormErrors (form, response, xhr) {
     var remainingErrors = {}
 
-    if (response.data === null) {
+    if (response.status === 403) {
+      InfoDialog.error('您没有操作权限。', response.status + ' ' + xhr.statusText)
+    }
+    else if (response.data === null) {
       InfoDialog.error('服务器通信故障，请联系管理员： ' + xhr.statusText, response.status)
     }
     else if (response.status >= 400) {

@@ -9,7 +9,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
-module.exports = merge(baseWebpackConfig, {
+var configDev = merge(baseWebpackConfig, {
   module: {
     loaders: utils.styleLoaders()
   },
@@ -21,17 +21,21 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'src/index.html',
-      inject: true,
-      chunks: ['index']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'admin.html',
-      template: 'src/admin.html',
-      inject: true,
-      chunks: ['admin']
-    })
   ]
 })
+
+for (var key in baseWebpackConfig.entry) {
+  configDev.plugins.push(
+    // generate dist index.html with correct asset hash for caching.
+    // you can customize output by editing /index.html
+    // see https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: key + '.html',
+      template: 'src/' + key + '.html',
+      inject: true,
+      chunks: [key]
+    })
+  )
+}
+
+module.exports = configDev

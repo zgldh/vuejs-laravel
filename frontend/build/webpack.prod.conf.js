@@ -6,7 +6,7 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = merge(baseWebpackConfig, {
+var configProd = merge(baseWebpackConfig, {
   module: {
     loaders: utils.styleLoaders({sourceMap: config.build.productionSourceMap, extract: true})
   },
@@ -37,31 +37,21 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.optimize.OccurenceOrderPlugin(),
     // extract css into its own file
     new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
+  ]
+})
+
+for (var key in baseWebpackConfig.entry) {
+  configProd.plugins.push(
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
-        ? '../index.html'
+        ? '../' + key + '.html'
         : config.build.index,
-      template: 'src/index.html',
+      template: 'src/' + key + '.html',
       inject: true,
-      chunks: ['index'],
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      }
-    }),
-    new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? '../admin.html'
-        : config.build.admin,
-      template: 'src/admin.html',
-      inject: true,
-      chunks: ['admin'],
+      chunks: [key],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -70,5 +60,7 @@ module.exports = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       }
     })
-  ]
-})
+  )
+}
+
+module.exports = configProd

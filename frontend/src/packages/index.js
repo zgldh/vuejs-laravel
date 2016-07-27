@@ -9,4 +9,5 @@ import users from 'zgldh/VuejsLaravelUser'
 var packages = [
   users
 ]
-module.exports = packages
+
+export default packages

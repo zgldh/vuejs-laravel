@@ -41,6 +41,7 @@
   import Vue from 'vue'
 
   export default WebPage.extend({
+
     route: {
       data: function (transaction) {
         if (this.userid) {

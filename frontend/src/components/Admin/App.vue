@@ -45,19 +45,17 @@
       Promise.all([
         CurrentUserProvider.loadFromServer()
       ]).then(
-              function (result) {
+              function (loadedUser) {
                 this.loading = false
-                var user = CurrentUserProvider.getCurrentUser()
-                console.log('App.vue ready: ', this.$route.path, result)
+                console.log('App.vue ready: ', this.$route.path, loadedUser)
                 var path = this.$route.path
-                if (!user) {
+                if (!loadedUser) {
                   Router.go('/login')
                 }
-                else if (!path) {
+                else if (!path || path === '/') {
                   Router.go('/dashboard')
                 }
                 else {
-//                  path = path.substr(0, path.lastIndexOf('/'))
                   Router.go(path)
                 }
               }.bind(this)

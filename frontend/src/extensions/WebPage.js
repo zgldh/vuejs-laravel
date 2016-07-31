@@ -1,21 +1,8 @@
 import Vue from 'vue'
-import CurrentUserProvicer from 'extensions/CurrentUserProvider'
 
 var WebPage = {
-  extend: function (settings, canActive) {
+  extend: function (settings) {
     var mixin = {
-      route: {
-        canActivate: !canActive ? function (transition) {
-          var user = CurrentUserProvicer.getCurrentUser()
-          if (!user) {
-            transition.redirect('/login')
-            return false
-          }
-          return true
-        } : function (transition) {
-          return true
-        }
-      },
       ready: function () {
         if (this.pageTitle) {
           this.$dispatch('onPageTitleChanged', this.pageTitle)

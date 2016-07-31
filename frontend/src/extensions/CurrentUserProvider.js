@@ -13,7 +13,7 @@ var CurrentUserProvider = {
     vm.$broadcast('onCurrentUserChanged', currentUser)
   },
   getCurrentUser: function () {
-    return currentUser
+    return CurrentUserProvider.isLogin()
   },
   isLogin: function () {
     if (promise) {
@@ -27,6 +27,9 @@ var CurrentUserProvider = {
         reject(currentUser)
       }
     })
+  },
+  hasRole: function (roleName) {
+    // TODO
   },
   loadFromServer: function () {
     promise = Vue.http.get('current_user').then(function (re) {

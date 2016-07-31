@@ -44,10 +44,13 @@
     attached: function () {
     },
     data: function () {
-      var user = CurrentUserProvider.getCurrentUser()
+      CurrentUserProvider.getCurrentUser().then(function (loadedUser) {
+        this.isLogin = loadedUser !== null
+        this.user = loadedUser
+      }.bind(this))
       return {
-        isLogin: user !== null,
-        user: user,
+        isLogin: false,
+        user: null,
         navigators: AdminNavigatorsProvider.getNavigators()
       }
     },

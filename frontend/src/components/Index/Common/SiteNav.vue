@@ -64,12 +64,15 @@
       $('#SiteNavUserMenu').dropdown()
     },
     data: function () {
-      var user = CurrentUserProvider.getCurrentUser()
-      var userName = user ? user.name : ''
+      CurrentUserProvider.getCurrentUser().then(function (loadedUser) {
+        this.isLogin = loadedUser !== null
+        this.user = loadedUser
+        this.userName = loadedUser ? loadedUser.name : ''
+      }.bind(this))
       return {
-        isLogin: user !== null,
-        user: user,
-        userName: userName
+        isLogin: false,
+        user: null,
+        userName: ''
       }
     },
     events: {

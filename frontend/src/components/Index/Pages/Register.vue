@@ -49,7 +49,7 @@
     },
     methods: {},
     components: {}
-  }, true)
+  })
 </script>
 
 <style lang="scss">

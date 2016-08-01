@@ -86,7 +86,8 @@
 
   @media only screen and (max-width: 768px) {
     .login-page {
-      margin-left: -200px;
+      width: calc(100% - 2em) !important;
+      margin-top: 100px;
     }
   }
 

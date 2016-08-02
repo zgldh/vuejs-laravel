@@ -21,7 +21,8 @@
     "vue-async-data": "^1.0.2",
     "vue-element": "^1.0.1",
     "vue-resource": "^0.7.0",
-    "vue-router": "^0.7.13"
+    "vue-router": "^0.7.13",
+    "vuex": "^1.0.0-rc.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

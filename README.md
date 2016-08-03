@@ -21,6 +21,7 @@ VueJS + webpack + semantic-UI + Laravel
         composer install
         // https://laravel.com/docs/5.2
         php artisan key:generate
+        php artisan vendor:publish
         php artisan migrate
     ```
 

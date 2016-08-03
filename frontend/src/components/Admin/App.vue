@@ -43,7 +43,7 @@
 
       CurrentUserProvider.installApp(this)
       Promise.all([
-        CurrentUserProvider.loadFromServer()
+        CurrentUserProvider.hasRole('Admin')
       ]).then(
               function (loadedUser) {
                 this.loading = false

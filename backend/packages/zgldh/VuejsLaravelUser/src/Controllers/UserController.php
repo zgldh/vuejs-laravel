@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use zgldh\VuejsLaravelUser\User;
 use zgldh\VuejsLaravelUser\UserRepositoryInterface;
 
 /**
@@ -12,6 +13,12 @@ use zgldh\VuejsLaravelUser\UserRepositoryInterface;
  */
 class UserController extends BaseController
 {
+    public function getCurrentUser(Request $request)
+    {
+        $user = User::with('roles')->find(\Auth::id());
+        return $user;
+    }
+
     public function index(Request $request, UserRepositoryInterface $repository)
     {
         $users = $repository->getList();

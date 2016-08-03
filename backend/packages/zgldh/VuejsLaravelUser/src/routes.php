@@ -12,6 +12,9 @@
 */
 
 Route::group(['prefix' => 'api', 'middleware' => ['web']], function () {
+
+    Route::get('current_user', 'zgldh\VuejsLaravelUser\Controllers\UserController@getCurrentUser');
+
     //
     Route::resource('user', 'zgldh\VuejsLaravelUser\Controllers\UserController');
 

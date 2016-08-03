@@ -22,6 +22,7 @@ class UserServiceProvider extends ServiceProvider
         // TODO: Implement register() method.
         require __DIR__ . '/routes.php';
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->register('Bican\Roles\RolesServiceProvider');
     }
 
     public function boot(Gate $gate)

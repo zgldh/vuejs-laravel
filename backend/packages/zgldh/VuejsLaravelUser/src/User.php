@@ -1,9 +1,11 @@
 <?php namespace zgldh\VuejsLaravelUser;
 
+use Bican\Roles\Contracts\HasRoleAndPermission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasRoleAndPermission
 {
+    use \Bican\Roles\Traits\HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *

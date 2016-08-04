@@ -46,8 +46,8 @@
         CurrentUserProvider.hasRole('Admin')
       ]).then(
               function (loadedUser) {
-                this.loading = false
                 console.log('App.vue ready: ', this.$route.path, loadedUser)
+                this.loading = false
                 var path = this.$route.path
                 if (!loadedUser) {
                   Router.go('/login')
@@ -59,7 +59,11 @@
                   Router.go(path)
                 }
               }.bind(this)
-      ).catch(console.log.bind(console))
+      ).catch(function (re) {
+        console.log('App.vue fail: ', re)
+        this.loading = false
+        Router.go('/login')
+      }.bind(this))
     }
   }
 </script>

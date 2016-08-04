@@ -8,6 +8,7 @@ use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use zgldh\VuejsLaravelUser\User;
+use zgldh\VuejsLaravelUser\UserRepositoryInterface;
 
 class AuthController extends BaseController
 {
@@ -148,6 +149,7 @@ class AuthController extends BaseController
      */
     public function authenticated(Request $request, $guard)
     {
-        return Auth::user();
+        $repository = \App::make(UserRepositoryInterface::class);
+        return $repository->getOne(\Auth::id());
     }
 }

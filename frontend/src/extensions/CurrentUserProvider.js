@@ -49,19 +49,20 @@ var CurrentUserProvider = {
     })
   },
   loadFromServer: function () {
-    loadingPromise = Vue.http.get('current_user').then(function (re) {
-      loaded = true
-      loadingPromise = null
-      re.data = re.data ? re.data : null
-      CurrentUserProvider.setCurrentUser(re.data)
-      return new Promise(function (resolve, reject) {
-        resolve(currentUser)
+    loadingPromise = Vue.http.get('current_user')
+      .then(function (re) {
+        loaded = true
+        loadingPromise = null
+        re.data = re.data ? re.data : null
+        CurrentUserProvider.setCurrentUser(re.data)
+        return new Promise(function (resolve, reject) {
+          resolve(currentUser)
+        })
+      }, function (err) {
+        loaded = true
+        loadingPromise = null
+        vm.$log(err)
       })
-    }, function (err) {
-      loaded = true
-      loadingPromise = null
-      vm.$log(err)
-    })
     return loadingPromise
   },
   logout: function () {

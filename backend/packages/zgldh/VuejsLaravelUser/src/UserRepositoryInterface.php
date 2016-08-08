@@ -12,7 +12,7 @@ interface UserRepositoryInterface
 {
     public function getList();
 
-    public function getOne($userId):User;
+    public function getOne($userId);
 
     public function create($userData);
 

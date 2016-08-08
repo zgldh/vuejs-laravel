@@ -13,7 +13,7 @@
   var dashboard = WebPage.extend({
     route: {
       canActivate: function (transition) {
-        return CurrentUserProvider.hasRole('Admin').catch(function () {
+        return CurrentUserProvider.hasRole('admin').catch(function () {
           transition.redirect('/login')
         })
       }

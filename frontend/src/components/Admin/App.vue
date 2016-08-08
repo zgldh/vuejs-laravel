@@ -43,7 +43,7 @@
 
       CurrentUserProvider.installApp(this)
       Promise.all([
-        CurrentUserProvider.hasRole('Admin')
+        CurrentUserProvider.hasRole('admin')
       ]).then(
               function (loadedUser) {
                 console.log('App.vue ready: ', this.$route.path, loadedUser)

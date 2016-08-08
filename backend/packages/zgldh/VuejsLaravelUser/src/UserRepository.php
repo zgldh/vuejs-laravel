@@ -17,9 +17,9 @@ class UserRepository implements UserRepositoryInterface
         return $users;
     }
 
-    public function getOne($userId):User
+    public function getOne($userId)
     {
-        $user = User::with('roles')->find($userId);
+        $user = User::find($userId);
         return $user;
     }
 

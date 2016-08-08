@@ -4,6 +4,20 @@ var currentUser = null
 var vm = null
 var loaded = false
 var loadingPromise = null
+var policies = {}
+
+function _hasRole (roleName) {
+  var policy = policies['role-' + roleName]
+  return new Promise(function (resolve, reject) {
+    if (policy) {
+      resolve(policy)
+    }
+    else {
+      reject(policy)
+    }
+  })
+}
+
 var CurrentUserProvider = {
   installApp: function (AppVm) {
     vm = AppVm
@@ -33,20 +47,23 @@ var CurrentUserProvider = {
     })
   },
   hasRole: function (roleName) {
-    return new Promise(function (resolve, reject) {
-      CurrentUserProvider.getCurrentUser()
-        .then(function (loadedUser) {
-          if (currentUser && currentUser.roles.filter(role => role.name === roleName).length > 0) {
-            resolve(currentUser)
-          }
-          else {
-            reject(currentUser)
-          }
+    var policyKey = 'role-' + roleName
+    var policy = policies[policyKey]
+    if (policy === undefined) {
+      return Vue.http.get('current_user/policy/role/' + roleName)
+        .then(function (re) {
+          policies[policyKey] = re.data.result
+          return _hasRole(roleName)
+        }, function (err) {
+          vm.$log(err)
         })
-        .catch(function (data) {
-          reject(data)
-        })
-    })
+    }
+    else {
+      return _hasRole(roleName)
+    }
+  },
+  hasPermission: function (permissionName, itemId) {
+    // TODO
   },
   loadFromServer: function () {
     loadingPromise = Vue.http.get('current_user')

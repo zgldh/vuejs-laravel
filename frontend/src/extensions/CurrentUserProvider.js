@@ -6,8 +6,8 @@ var loaded = false
 var loadingPromise = null
 var policies = {}
 
-function _hasRole (roleName) {
-  var policy = policies['role-' + roleName]
+function _hasPolicy (policyKey) {
+  var policy = policies[policyKey]
   return new Promise(function (resolve, reject) {
     if (policy) {
       resolve(policy)
@@ -24,6 +24,7 @@ var CurrentUserProvider = {
   },
   setCurrentUser: function (user) {
     currentUser = user
+    policies = {}
     vm.$dispatch('onCurrentUserChanged', currentUser)
     vm.$broadcast('onCurrentUserChanged', currentUser)
   },
@@ -53,17 +54,36 @@ var CurrentUserProvider = {
       return Vue.http.get('current_user/policy/role/' + roleName)
         .then(function (re) {
           policies[policyKey] = re.data.result
-          return _hasRole(roleName)
+          return _hasPolicy(policyKey)
         }, function (err) {
           vm.$log(err)
         })
     }
     else {
-      return _hasRole(roleName)
+      return _hasPolicy(policyKey)
     }
   },
-  hasPermission: function (permissionName, itemId) {
-    // TODO
+  hasPermission: function (permissionName, modelClass, modelId) {
+    var policyKey = 'permission-' + permissionName + '-' + modelClass + '-' + modelId
+    var policy = policies[policyKey]
+    if (policy === undefined) {
+      var params = (modelClass && modelId) ? {
+        _modelClass: modelClass,
+        _modelId: modelId
+      } : null
+      return Vue.http.get('current_user/policy/permission/' + permissionName, {
+        params: params
+      })
+        .then(function (re) {
+          policies[policyKey] = re.data.result
+          return _hasPolicy(policyKey)
+        }, function (err) {
+          vm.$log(err)
+        })
+    }
+    else {
+      return _hasPolicy(policyKey)
+    }
   },
   loadFromServer: function () {
     loadingPromise = Vue.http.get('current_user')

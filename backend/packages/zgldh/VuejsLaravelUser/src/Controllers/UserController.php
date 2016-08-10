@@ -19,12 +19,16 @@ class UserController extends BaseController
     public function getCurrentUserPolicyPermission(UserPermissionRequest $request, UserRepositoryInterface $repository, $permissionName)
     {
         $user = $repository->getOne(\Auth::id());
-        if ($user && $request->has('model')) {
-            return ['result' => $user->allowed($permissionName, $request->getModel())];
-        } elseif ($user) {
+        $model = $request->getModel();
+        if ($model === null) {
+            // There should be a model, but can't be found in db.
+            return ['result' => false];
+        } elseif ($model === false) {
+            // Request doesn't need model
             return ['result' => $user->hasPermission($permissionName)];
         } else {
-            return ['result' => false];
+            // Model is needed and the model is retrieved.
+            return ['result' => $user->allowed($permissionName, $model)];
         }
     }
 

@@ -61,7 +61,7 @@
         return false
       },
       canActivate: function (transition) {
-        return CurrentUserProvider.isLogin().catch(function () {
+        return CurrentUserProvider.hasRole('admin').catch(function () {
           transition.redirect('/login')
         })
       }

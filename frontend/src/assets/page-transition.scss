@@ -4,11 +4,20 @@
 }
 
 .page-enter {
-  animation: page-in .5s;
+  animation: page-in .3s;
+  position: absolute;
 }
 
 .page-leave {
-  animation: page-out .5s;
+  animation: page-out .3s;
+  position: absolute;
+}
+
+.pusher {
+  .page-transition {
+    &.full-page {
+    }
+  }
 }
 
 @keyframes page-in {

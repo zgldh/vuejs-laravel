@@ -1,7 +1,7 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-  <!-- Sidebar Menu -->
+  <!-- SiteNav Menu -->
   <div class="ui vertical sidebar menu">
-    <a class="item sidebar-close-item"><i class="chevron left icon"></i> 关闭菜单</a>
+    <a class="item sitenav-close-item"><i class="chevron left icon"></i> 关闭菜单</a>
     <a class="item"
        v-bind:class="{'active': $route.path=='/'}"
        v-link="{path:'/'}">首页</a>
@@ -60,7 +60,7 @@
 
   export default {
     attached: function () {
-      $('.ui.sidebar').sidebar('attach events', '.toc.item,.ui.sidebar>.sidebar-close-item')
+      $('.ui.sidebar').sidebar('attach events', '.toc.item,.ui.sidebar>.sitenav-close-item')
       $('#SiteNavUserMenu').dropdown()
     },
     data: function () {

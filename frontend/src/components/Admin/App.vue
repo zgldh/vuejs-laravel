@@ -4,12 +4,12 @@
   </div>
   <div v-else>
     <div class="ui top attached demo menu" id="top-menu-bar" v-if="topMenuVisible">
-      <a class="item" v-on:click="toggleSidebar(event)"><i class="sidebar icon"></i></a>
+      <a class="item" v-on:click="toggleSiteNav(event)"><i class="sidebar icon"></i></a>
     </div>
   </div>
   <div class="ui bottom attached segment pushable" id="main-pusher">
     <site-nav></site-nav>
-    <div class="pusher">
+    <div class="pusher" v-bind:class="{'has-sitenav':siteNavVisible}">
       <router-view></router-view>
     </div>
   </div>
@@ -23,6 +23,8 @@
   import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import PackageInstaller from 'extensions/PackageInstaller'
   import packages from 'src/packages/index.js'
+  import { toggleSiteNavVisible } from 'components/Admin/Vuex/Actions'
+  import { getSiteNavVisible } from 'components/Admin/Vuex/Getters'
 
   export default {
     data: function () {
@@ -30,6 +32,15 @@
         pageTitle: '',
         topMenuVisible: false,
         loading: true
+      }
+    },
+    vuex: {
+      actions: {
+        toggleSiteNav: toggleSiteNavVisible
+      },
+      getters: {
+        // note that you're passing the function itself, and not the value 'getCount()'
+        siteNavVisible: getSiteNavVisible
       }
     },
     events: {
@@ -78,11 +89,7 @@
         Router.go('/login')
       }.bind(this))
     },
-    methods: {
-      toggleSidebar: function (event) {
-        this.$broadcast('onToggleSidebar')
-      }
-    }
+    methods: {}
   }
 </script>
 
@@ -92,5 +99,18 @@
   @import "../../assets/page-transition.scss";
   @import "../../assets/custom.scss";
 
+  #main-pusher {
+    margin-bottom: 0;
+    height: calc(100% - 42px);
+  }
 
+  .pusher {
+    &.has-sitenav {
+      > .container {
+      }
+    }
+    > .container {
+      padding: 0 40px 0 10px;
+    }
+  }
 </style>

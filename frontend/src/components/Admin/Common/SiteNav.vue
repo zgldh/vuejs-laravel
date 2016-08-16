@@ -1,8 +1,8 @@
 <template>
-  <!-- Sidebar Menu -->
+  <!-- Sitenav Menu -->
   <div class="ui visible labeled accordion icon left inline vertical sidebar menu"
        id="SiteNav"
-       v-if="visible" transition="sidenav">
+       v-if="siteNavVisible" transition="sitenav">
     <div class="ui container">
       <a class="item self-configuration" title="个人设置">
         <img class="ui medium circular image" src="/static/images/avatar1.jpg"></a>
@@ -41,9 +41,17 @@
   import $ from 'jquery'
   import CurrentUserProvider from 'extensions/CurrentUserProvider'
   import AdminNavigatorsProvider from 'extensions/AdminNavigatorsProvider.vue'
+  import store from 'components/Admin/Vuex/Store'
+  import { getSiteNavVisible } from 'components/Admin/Vuex/Getters'
 
   export default {
     attached: function () {
+    },
+    vuex: {
+      getters: {
+        // note that you're passing the function itself, and not the value 'getCount()'
+        siteNavVisible: getSiteNavVisible
+      }
     },
     data: function () {
       CurrentUserProvider.getCurrentUser().then(function (loadedUser) {
@@ -51,12 +59,11 @@
       }.bind(this))
       return {
         user: null,
-        visible: false,
         navigators: AdminNavigatorsProvider.getNavigators()
       }
     },
     watch: {
-      'visible': function (val, oldVal) {
+      'siteNavVisible': function (val, oldVal) {
         if (val === true) {
           $('#SiteNav').accordion('refresh')
         }
@@ -71,23 +78,20 @@
       onCurrentUserChanged: function (user) {
         if (user) {
           this.user = user
-          this.visible = true
+          store.dispatch('TOGGLE_SITENAV_VISIBLE', true)
         }
         else {
           this.user = {name: null}
-          this.visible = false
+          store.dispatch('TOGGLE_SITENAV_VISIBLE', false)
         }
       },
       onNavigatorsChanged: function (navigators) {
         this.navigators = navigators
-      },
-      onToggleSidebar: function () {
-        this.visible = !this.visible
       }
     },
     methods: {
       logout: function (event) {
-        this.visible = false
+        store.dispatch('TOGGLE_SITENAV_VISIBLE', false)
         CurrentUserProvider.logout()
       }
     },
@@ -99,23 +103,25 @@
 
 <style lang="scss" scoped>
   #SiteNav {
-    width: 250px;
+    /* 必需 */
+    &.sitenav-transition {
+      transition: all .3s ease;
+      width: 250px;
+      height: auto;
+      overflow: hidden;
+    }
+
+    /* .expand-enter 定义进入的开始状态 */
+    /* .expand-leave 定义离开的结束状态 */
+    &.sitenav-enter, &.sitenav-leave {
+      width: 0px;
+      height: auto;
+      opacity: 0;
+    }
+
+    .content.active {
+      z-index: 1;
+    }
   }
 
-  /* 必需 */
-  .sidenav-transition {
-    transition: all .3s ease;
-    height: 30px;
-    padding: 10px;
-    background-color: #eee;
-    overflow: hidden;
-  }
-
-  /* .expand-enter 定义进入的开始状态 */
-  /* .expand-leave 定义离开的结束状态 */
-  .sidenav-enter, .sidenav-leave {
-    height: 0;
-    padding: 0 10px;
-    opacity: 0;
-  }
 </style>

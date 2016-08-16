@@ -1,6 +1,8 @@
 <template>
   <!-- Sidebar Menu -->
-  <div class="ui left fixed vertical accordion menu side-menu" id="SiteNav" v-if="isLogin">
+  <div class="ui visible labeled accordion icon left inline vertical sidebar menu"
+       id="SiteNav"
+       v-if="visible" transition="sidenav">
     <div class="ui container">
       <a class="item self-configuration" title="个人设置">
         <img class="ui medium circular image" src="/static/images/avatar1.jpg"></a>
@@ -30,7 +32,7 @@
            v-else>{{ item.text }}</a>
       </template>
 
-      <a class="item" @click="logout(event)" v-show="isLogin">退出</a>
+      <a class="item" @click="logout(event)">退出</a>
     </div>
   </div>
 </template>
@@ -45,17 +47,16 @@
     },
     data: function () {
       CurrentUserProvider.getCurrentUser().then(function (loadedUser) {
-        this.isLogin = loadedUser !== null
         this.user = loadedUser
       }.bind(this))
       return {
-        isLogin: false,
         user: null,
+        visible: false,
         navigators: AdminNavigatorsProvider.getNavigators()
       }
     },
     watch: {
-      'isLogin': function (val, oldVal) {
+      'visible': function (val, oldVal) {
         if (val === true) {
           $('#SiteNav').accordion('refresh')
         }
@@ -68,20 +69,25 @@
     },
     events: {
       onCurrentUserChanged: function (user) {
-        this.isLogin = user !== null
-        if (this.isLogin) {
+        if (user) {
           this.user = user
+          this.visible = true
         }
         else {
           this.user = {name: null}
+          this.visible = false
         }
       },
       onNavigatorsChanged: function (navigators) {
         this.navigators = navigators
+      },
+      onToggleSidebar: function () {
+        this.visible = !this.visible
       }
     },
     methods: {
       logout: function (event) {
+        this.visible = false
         CurrentUserProvider.logout()
       }
     },
@@ -92,17 +98,24 @@
 </script>
 
 <style lang="scss" scoped>
-  .self-configuration {
-    img {
-      max-height: 64px;
-      width: auto !important;
-      margin: 0 auto;
-    }
+  #SiteNav {
+    width: 250px;
   }
 
-  .side-menu {
-    .menu {
-      width: 100%;
-    }
+  /* 必需 */
+  .sidenav-transition {
+    transition: all .3s ease;
+    height: 30px;
+    padding: 10px;
+    background-color: #eee;
+    overflow: hidden;
+  }
+
+  /* .expand-enter 定义进入的开始状态 */
+  /* .expand-leave 定义离开的结束状态 */
+  .sidenav-enter, .sidenav-leave {
+    height: 0;
+    padding: 0 10px;
+    opacity: 0;
   }
 </style>

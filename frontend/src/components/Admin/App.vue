@@ -3,12 +3,17 @@
     <h1>Loading</h1>
   </div>
   <div v-else>
+    <div class="ui top attached demo menu" id="top-menu-bar" v-if="topMenuVisible">
+      <a class="item" v-on:click="toggleSidebar(event)"><i class="sidebar icon"></i></a>
+    </div>
+  </div>
+  <div class="ui bottom attached segment pushable" id="main-pusher">
     <site-nav></site-nav>
-
     <div class="pusher">
       <router-view></router-view>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -23,14 +28,19 @@
     data: function () {
       return {
         pageTitle: '',
+        topMenuVisible: false,
         loading: true
       }
     },
     events: {
       onCurrentUserChanged: function (user) {
         if (!user) {
+          this.topMenuVisible = false
           console.log('App.vue onCurrentUserChanged', user)
           Router.go('/login')
+        }
+        else {
+          this.topMenuVisible = true
         }
       }
     },
@@ -50,12 +60,15 @@
                 this.loading = false
                 var path = this.$route.path
                 if (!loadedUser) {
+                  this.topMenuVisible = false
                   Router.go('/login')
                 }
                 else if (!path || path === '/') {
+                  this.topMenuVisible = true
                   Router.go('/dashboard')
                 }
                 else {
+                  this.topMenuVisible = true
                   Router.go(path)
                 }
               }.bind(this)
@@ -64,6 +77,11 @@
         this.loading = false
         Router.go('/login')
       }.bind(this))
+    },
+    methods: {
+      toggleSidebar: function (event) {
+        this.$broadcast('onToggleSidebar')
+      }
     }
   }
 </script>
@@ -74,15 +92,5 @@
   @import "../../assets/page-transition.scss";
   @import "../../assets/custom.scss";
 
-  @media only screen and (max-width: 768px) {
-    .side-menu + .pusher {
-      padding-left: 200px;
-    }
-  }
 
-  @media only screen and (min-width: 768px) {
-    .side-menu + .pusher {
-      padding-left: 214px;
-    }
-  }
 </style>

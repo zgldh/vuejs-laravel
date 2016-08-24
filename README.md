@@ -1,3 +1,5 @@
+# 正在研究 VueJS2 本库暂时停止更新 
+
 # vuejs-laravel
 VueJS + webpack + semantic-UI + Laravel
 

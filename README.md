@@ -1,6 +1,7 @@
 # 正在研究 VueJS2 本库暂时停止更新 
 
 想用 Laravel + VueJS 做后台的朋友可以移步这里 https://github.com/zgldh/scaffold
+
 Please check this repo instead: https://github.com/zgldh/scaffold
 
 # vuejs-laravel

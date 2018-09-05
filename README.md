@@ -1,4 +1,4 @@
-# 本库停止更新 
+# 本库停止更新  Deprecated
 
 想用 Laravel + VueJS 做后台的朋友可以移步这里 https://github.com/zgldh/scaffold
 
